@@ -1,46 +1,68 @@
-# cmake_minimum_required(VERSION 3.10)
-# project(EpidemiologySim)
-
-# set(CMAKE_CXX_STANDARD 17)
-
-# # 1. Define the paths manually
-# # These should point to wherever your 'raylib.h' and library files are
-# set(RAYLIB_INCLUDE_DIR "C:/raylib/raylib/src")
-# set(RAYLIB_LIB_DIR "C:/raylib/raylib/src")
-
-# # 2. Tell CMake to look in these folders
-# include_directories(include)           # Your headers
-# include_directories(${RAYLIB_INCLUDE_DIR}) # Raylib headers
-
-# link_directories(${RAYLIB_LIB_DIR})
-
-# add_subdirectory(src)
-
-# if(MSVC)
-#     # This tells the linker to ignore the standard library conflict
-#     set_target_properties(EpidemiologySim PROPERTIES LINK_FLAGS "/NODEFAULTLIB:MSVCRT")
-# endif()
-
-cmake_minimum_required(VERSION 3.14)
+# This is the CMake file that i am using on my laptop
+cmake_minimum_required(VERSION 3.10)
 project(EpidemiologySim)
 
 set(CMAKE_CXX_STANDARD 17)
 
-# --- 1. FETCH RAYLIB ---
-include(FetchContent)
-FetchContent_Declare(
-  raylib
-  GIT_REPOSITORY https://github.com/raysan5/raylib.git
-  GIT_TAG        master
-)
+# 1. Define the paths manually
+# These should point to wherever your 'raylib.h' and library files are
+set(RAYLIB_INCLUDE_DIR "C:/raylib/raylib/src")
+set(RAYLIB_LIB_DIR "C:/raylib/raylib/src")
 
-# Set some Raylib options before building it
-set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE) # Saves time
-FetchContent_MakeAvailable(raylib)
+# 2. Tell CMake to look in these folders
+include_directories(include)           # Your headers
+include_directories(${RAYLIB_INCLUDE_DIR}) # Raylib headers
 
-# --- 2. INCLUDE HEADERS ---
-# Tells your project where your own .h files are
-include_directories(include)
+link_directories(${RAYLIB_LIB_DIR})
 
-# --- 3. GO TO SRC ---
 add_subdirectory(src)
+
+if(MSVC)
+    # This tells the linker to ignore the standard library conflict
+    set_target_properties(EpidemiologySim PROPERTIES LINK_FLAGS "/NODEFAULTLIB:MSVCRT")
+endif()
+
+# cmake_minimum_required(VERSION 3.14)
+# project(EpidemiologySim)
+
+# set(CMAKE_CXX_STANDARD 17)
+
+# # --- 1. FETCH RAYLIB ---
+# include(FetchContent)
+# FetchContent_Declare(
+#   raylib
+#   GIT_REPOSITORY https://github.com/raysan5/raylib.git
+#   GIT_TAG        master
+# )
+
+# # Set some Raylib options before building it
+# set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE) # Saves time
+# FetchContent_MakeAvailable(raylib)
+
+# # --- 2. INCLUDE HEADERS ---
+# # Tells your project where your own .h files are
+# include_directories(include)
+
+# # --- 3. GO TO SRC ---
+# add_subdirectory(src)
+
+
+# # Ahmed's pc cmake file
+# cmake_minimum_required(VERSION 3.16)
+# project(EpidemiologySim)
+
+# set(CMAKE_CXX_STANDARD 17)
+# set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# # ✅ Let MSYS2/CMake find raylib automatically
+# find_package(raylib CONFIG REQUIRED)
+
+# # ✅ Your executable
+# add_executable(EpidemiologySim
+#     src/main.cpp
+#     src/Agent.cpp
+#     src/Disease.cpp
+# )
+
+# # ✅ Link raylib correctly (MinGW-compatible)
+# target_link_libraries(EpidemiologySim raylib)
