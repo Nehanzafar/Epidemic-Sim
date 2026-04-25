@@ -1,7 +1,7 @@
 #include "Agent.h"
 #include <random>
 #include <iostream>
-// #include <raylib>
+#include <raylib.h>
 
 using namespace std;
 Agent::Agent()
@@ -25,4 +25,8 @@ void Agent::data_dump()
     {
         cout << "Disease Name = " << disease->get_code() << endl;
     }
+}
+
+void Agent::Draw(){
+    DrawCircle(position.x, position.y, 5, WHITE);
 }
