@@ -15,15 +15,16 @@ private:
     // Timers
     unsigned int infection_time; // Time remaining the person will remain sick
     // Flags
-    bool immune;   // If the person is immune he can't get sick
     bool infected; // is the Agent infected or not
     // Disease storage
     Disease *disease;
     Pos position;
 
 public:
+    int *immunity_codes;
+    int size_of_codes;
     Agent(); // Default constructor to assign random values to modifiers
     // helper
-    void Draw();
+    int infect(const Agent &other);
     void data_dump(); // outputs the entire stats of agent
 };

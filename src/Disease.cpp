@@ -3,20 +3,22 @@
 #include <cstdlib>
 Disease::Disease()
 {
-    this->name = "";
+    this->code = strains++;
     this->fatality = 0;
     this->infectivity = 0;
     this->recovery_time = 0;
-    this->mutate_chance = 0;
 }
 
-Disease::Disease(std::string name, float fatality, float infectivity, float recovery_time, float mutate)
+Disease::Disease(float fatality, float infectivity, float recovery_time)
 {
-    this->name = name;
+    this->code = strains++;
     this->fatality = fatality;
     this->infectivity = infectivity;
     this->recovery_time = recovery_time;
-    this->mutate_chance = mutate;
+}
+int Disease::get_code()
+{
+    return this->code;
 }
 
 int Disease::strains = 0;
