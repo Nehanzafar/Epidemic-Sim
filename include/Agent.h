@@ -1,3 +1,7 @@
+struct Pos{
+    int x;
+    int y;
+};
 class Agent
 {
 private:
@@ -9,5 +13,8 @@ private:
     float infection_time; // Time remaining the person will remain sick
     // Flags
     bool immune; // If the person is immune he can't get sick
+    // position
+    Pos position;
+
 public:
 };
