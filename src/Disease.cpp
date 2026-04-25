@@ -1,7 +1,6 @@
 #include "Disease.h"
 #include <string>
 #include <cstdlib>
-using namespace std;
 Disease::Disease()
 {
     this->name = "";
@@ -11,7 +10,7 @@ Disease::Disease()
     this->mutate_chance = 0;
 }
 
-Disease::Disease(string name, float fatality, float infectivity, float recovery_time, float mutate)
+Disease::Disease(std::string name, float fatality, float infectivity, float recovery_time, float mutate)
 {
     this->name = name;
     this->fatality = fatality;
@@ -19,4 +18,5 @@ Disease::Disease(string name, float fatality, float infectivity, float recovery_
     this->recovery_time = recovery_time;
     this->mutate_chance = mutate;
 }
+
 int Disease::strains = 0;

@@ -1,3 +1,4 @@
+#pragma once
 #include <string>
 class Disease
 {
@@ -13,5 +14,5 @@ private:
 public:
     static int strains; // tracks number of active strains
     Disease();
-    Disease(string name, float fatality, float infectivity, float recovery_time, float mutate); // Parameterized constructor to Assign all the modifiers with values
+    Disease(std::string name, float fatality, float infectivity, float recovery_time, float mutate); // Parameterized constructor to Assign all the modifiers with values
 };

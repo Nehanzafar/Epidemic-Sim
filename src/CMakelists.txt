@@ -1,3 +1,16 @@
+# file(GLOB SOURCES "*.cpp")
+# add_executable(EpidemiologySim ${SOURCES})
+
+# # Use the full path to the .lib file
+# target_link_libraries(EpidemiologySim PRIVATE 
+#     "C:/raylib/raylib/build/raylib/Release/raylib.lib"
+#     winmm 
+#     gdi32 
+#     opengl32 
+#     shell32
+#     user32
+# )
+
 # Collect all your .cpp files
 file(GLOB SOURCES "*.cpp")
 

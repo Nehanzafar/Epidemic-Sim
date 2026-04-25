@@ -1,9 +1,8 @@
-<<<<<<< HEAD
-#include "Agent.h"
-=======
 #include "Agent.h"
 #include <random>
 #include <iostream>
+// #include <raylib>
+
 using namespace std;
 Agent::Agent()
 {
@@ -14,6 +13,13 @@ Agent::Agent()
     this->infection_time = 0;
     this->immune = false;
     this->infected = false;
+
+    // this->position = {
+    //     uniform_int_distribution<int>(0, getScreenWidth())(gen),
+    //     uniform_int_distribution<int>(0, getScreenHeight())(gen)
+    // }
+
+
 }
 void Agent::data_dump()
 {
@@ -22,9 +28,3 @@ void Agent::data_dump()
     cout << "Is Agent immune = " << this->immune << endl;
     cout << "Is the Agent infected = " << this->infected << endl;
 }
-int main()
-{
-    Agent a;
-    a.data_dump();
-}
->>>>>>> 5efe4872ab4ea17b8a6d18bb487c100222e3e846
