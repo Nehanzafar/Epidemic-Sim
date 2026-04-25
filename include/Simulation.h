@@ -1,5 +1,5 @@
+#include "Agent.h"
 class Simulation
 {
 private:
-    // current population
 };
