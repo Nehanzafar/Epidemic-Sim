@@ -1,5 +1,13 @@
 #pragma once
 #include <string>
+
+struct Disease_attributes
+{
+    float fatality;
+    float infectivity;
+    float recovery_time;
+    float mutate_chance;
+};
 class Disease
 {
 private:

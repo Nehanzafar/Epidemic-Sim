@@ -1,7 +1,7 @@
 #include "Agent.h"
 #include <random>
 #include <iostream>
-// #include <raylib>
+#include <raylib.h>
 
 using namespace std;
 Agent::Agent()
@@ -14,10 +14,10 @@ Agent::Agent()
     this->immune = false;
     this->infected = false;
 
-    // this->position = {
-    //     uniform_int_distribution<int>(0, getScreenWidth())(gen),
-    //     uniform_int_distribution<int>(0, getScreenHeight())(gen)
-    // }
+    this->position = {
+        uniform_int_distribution<int>(0, GetScreenWidth())(gen),
+        uniform_int_distribution<int>(0, GetScreenHeight())(gen)
+    };
 
 
 }
@@ -27,4 +27,8 @@ void Agent::data_dump()
     cout << "Agent infection_time = " << this->infection_time << endl;
     cout << "Is Agent immune = " << this->immune << endl;
     cout << "Is the Agent infected = " << this->infected << endl;
+}
+
+void Agent::Draw(){
+    DrawCircle(position.x, position.y, 5, WHITE);
 }

@@ -18,11 +18,12 @@ private:
     bool immune;   // If the person is immune he can't get sick
     bool infected; // is the Agent infected or not
     // Disease storage
-    Disease disease;
+    Disease *disease;
     Pos position;
 
 public:
     Agent(); // Default constructor to assign random values to modifiers
     // helper
+    void Draw();
     void data_dump(); // outputs the entire stats of agent
 };
