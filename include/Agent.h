@@ -1,5 +1,14 @@
+#pragma once
 #include "Disease.h"
+<<<<<<< HEAD
 #include <vector>
+=======
+struct Pos{
+    int x;
+    int y;
+};
+
+>>>>>>> f1901e48843657c26e05f89f3ae75acc73276fd3
 class Agent
 {
 private:
@@ -11,10 +20,16 @@ private:
     unsigned int infection_time; // Time remaining the person will remain sick
     // Flags
     bool infected; // is the Agent infected or not
+<<<<<<< HEAD
     // immunity codes
 
     //  Disease storage
     Disease *disease;
+=======
+    // Disease storage
+    Disease disease;
+    Pos position;
+>>>>>>> f1901e48843657c26e05f89f3ae75acc73276fd3
 
 public:
     int *immunity_codes;

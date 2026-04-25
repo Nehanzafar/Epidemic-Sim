@@ -1,7 +1,6 @@
 #include "Disease.h"
 #include <string>
 #include <cstdlib>
-using namespace std;
 Disease::Disease()
 {
     this->code = strains++;
@@ -21,4 +20,5 @@ int Disease::get_code()
 {
     return this->code;
 }
+
 int Disease::strains = 0;
