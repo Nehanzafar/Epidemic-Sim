@@ -1,0 +1,23 @@
+cmake_minimum_required(VERSION 3.14)
+project(EpidemiologySim)
+
+set(CMAKE_CXX_STANDARD 17)
+
+# --- 1. FETCH RAYLIB ---
+include(FetchContent)
+FetchContent_Declare(
+  raylib
+  GIT_REPOSITORY https://github.com/raysan5/raylib.git
+  GIT_TAG        master
+)
+
+# Set some Raylib options before building it
+set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE) # Saves time
+FetchContent_MakeAvailable(raylib)
+
+# --- 2. INCLUDE HEADERS ---
+# Tells your project where your own .h files are
+include_directories(include)
+
+# --- 3. GO TO SRC ---
+add_subdirectory(src)
