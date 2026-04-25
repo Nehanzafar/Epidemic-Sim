@@ -8,8 +8,10 @@ private:
     float fatality;
     float infectivity;
     float recovery_time; // time in ticks to recover from disease
-    float mutate;        // chance of mutatuing
+    float mutate_chance; // chance of mutatuing
 
 public:
-    Disease(float fatality, float infectivity, float recovery_time, float mutate); // Parameterized constructor to Assign all the modifiers with values
+    static int strains; // tracks number of active strains
+    Disease();
+    Disease(string name, float fatality, float infectivity, float recovery_time, float mutate); // Parameterized constructor to Assign all the modifiers with values
 };
