@@ -6,12 +6,12 @@
 Window::Window()
 {
 
-    constexpr int screenWidth = 800;
-    constexpr int screenHeight = 600;
-
-    InitWindow(screenWidth, screenHeight, "Epidemeology Sim");
+    const int screen_width = 800;
+    const int screen_height = 600;
+    InitWindow(screen_width, screen_height, "Epidemeology Sim");
     SetTargetFPS(60);
 }
+
 
 void Window::Run(std::vector<Agent> a)
 {

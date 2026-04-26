@@ -1,12 +1,14 @@
 #include "Disease.h"
-#include <string>
-#include <cstdlib>
+using namespace std;
 Disease::Disease()
 {
     this->code = strains++;
-    this->fatality = 0;
-    this->infectivity = 0;
-    this->recovery_time = 0;
+    random_device rd;
+    mt19937 gen(rd());
+    this->fatality = ((float)uniform_int_distribution<int>(1, 5)(gen)) / 10;
+    ;
+    this->infectivity = ((float)uniform_int_distribution<int>(1, 5)(gen)) / 10;
+    this->recovery_time = (uniform_int_distribution<int>(10, 30)(gen));
 }
 
 Disease::Disease(float fatality, float infectivity, float recovery_time)
@@ -20,5 +22,24 @@ int Disease::get_code()
 {
     return this->code;
 }
-
+int Disease::get_recovery_time()
+{
+    return this->recovery_time;
+}
+int Disease::get_total_Agents_infected()
+{
+    return this->total_Agents_infected;
+}
+float Disease::get_infectivity()
+{
+    return this->infectivity;
+}
+float Disease::get_mutate_chance()
+{
+    return this->mutate_chance;
+}
+void Disease::increment_total_Agents_infected()
+{
+    this->total_Agents_infected++;
+}
 int Disease::strains = 0;
