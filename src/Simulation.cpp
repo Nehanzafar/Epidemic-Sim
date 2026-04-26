@@ -3,6 +3,7 @@ using namespace std;
 
 Simulation::Simulation(int amount_of_time, int starting_population, Disease_attributes d)
 {
+    std::cout << "Initalizing the simulation..." << std::endl;
     this->total_time_the_simulation_lasts = amount_of_time;
     this->starting_disease_attributes = d;
     this->time = 0;
@@ -15,30 +16,49 @@ Simulation::Simulation(int amount_of_time, int starting_population, Disease_attr
         population.push_back(a);
     }
 }
+
+// This is fucked
+// Ahmed land
 void Simulation::interaction(Agent &sick, Agent &other)
 {
-    if (sick.get_disease() == nullptr)
+    std::cout << "Checking for disease in the sick agent.." << std::endl;
+    if (!sick.is_sick())
     {
+        std::cout << "Not Sick.." << std::endl;
+        std::cout << sick.is_sick() << std::endl;
         return;
     }
+
+    std::cout << "Checking if target is immune.." << std::endl;
     if (find(other.get_immunity_codes().begin(), other.get_immunity_codes().end(), sick.get_disease()->get_code()) != other.get_immunity_codes().end())
     {
+        std::cout << "Target is immue.." << std::endl;
         return;
     }
+
+    std::cout << "Checking infect roll.." << std::endl;
     random_device rd;
     mt19937 gen(rd());
     float infection_chance = (sick.get_disease()->get_infectivity() + other.get_immuno_weakness());
     if ((((float)uniform_int_distribution<int>(1, 10)(gen)) / (10)) <= infection_chance)
     {
+
+        std::cout << "Checking Mutation roll.." << std::endl;
         if ((((float)uniform_int_distribution<int>(1, 10)(gen)) / (10)) >= ((1) - (sick.get_disease()->get_mutate_chance())))
         {
-            Disease *d = new Disease();
+            std::cout << "Disease Mutated.." << std::endl;
+            Disease *d = new Disease;
             this->disease_list.push_back(d);
             other.infect(*d);
         }
         else
+        {
+            std::cout << "Disease Not Mutated.." << std::endl;
+            std::cout << "Agent infected.." << std::endl;
             other.infect(*(sick.get_disease()));
+        }
     }
+    return;
 }
 
 void Simulation::update_grid()
@@ -78,9 +98,9 @@ void Simulation::run_step()
         int gx = static_cast<int>(agent->get_position().x) / CELL_SIZE;
         int gy = static_cast<int>(agent->get_position().y) / CELL_SIZE;
 
-        for (int x = gx - 1; x < gx + 1; x++)
+        for (int x = gx - 1; x <= gx + 1; x++)
         {
-            for (int y = gy - 1; y < gy + 1; y++)
+            for (int y = gy - 1; y <= gy + 1; y++)
             {
                 if (x >= 0 && x < COLS && y >= 0 && y < ROWS)
                 {
@@ -89,7 +109,9 @@ void Simulation::run_step()
 
                     if (((*grid)[y])[x] != nullptr && agent->get_disease() != nullptr)
                     {
-                        interaction(*((*grid)[gy])[gx], *((*grid)[y])[x]);
+                        std::cout << "Interaction ocurring..." << std::endl;
+                        interaction(*agent, *((*grid)[y])[x]);
+                        std::cout << "Interaction ocurred..." << std::endl;
                     }
                     else
                     {
@@ -101,14 +123,25 @@ void Simulation::run_step()
         random_device rd;
         mt19937 gen(rd());
 
-        int rndm_num = uniform_int_distribution<int>(0, 10)(gen);
-        if ((allowed_pos[rndm_num].x + CELL_SIZE > 0) || (allowed_pos[rndm_num].x + CELL_SIZE <= screen_width) && (allowed_pos[rndm_num].y + CELL_SIZE > 0) || (allowed_pos[rndm_num].y + CELL_SIZE <= screen_height))
-            agent->set_position(allowed_pos[rndm_num]);
+        // int rndm_num = uniform_int_distribution<int>(0, (int)(allowed_pos.size()))(gen);
+        int rndm_num = 0;
+        // if ((allowed_pos[rndm_num].x + CELL_SIZE > 0) || (allowed_pos[rndm_num].x + CELL_SIZE <= screen_width) && (allowed_pos[rndm_num].y + CELL_SIZE > 0) || (allowed_pos[rndm_num].y + CELL_SIZE <= screen_height))
+        //     agent->set_position(allowed_pos[rndm_num]);
+
+        // This is just to test the code
+
+        int newX = agent->get_position().x + agent->get_velocity();
+        int newY = agent->get_position().y + agent->get_velocity();
+        if (newX >= 0 && (newX + CELL_SIZE) <= screen_width &&
+            newY >= 0 && (newY + CELL_SIZE) <= screen_height)
+            agent->set_position({newX,
+                                 newY});
     }
 }
 
 void Simulation::draw()
 {
+    int i = 0;
     for (auto &a : population)
     {
         Color color = {200, 200, 200};
@@ -129,6 +162,10 @@ void Simulation::draw()
 void Simulation::run_simulation()
 {
     std::cout << "The simulation is starting.." << std::endl;
+    std::cout << "Population Size: " << population.size() << std::endl;
+    Disease *d = new Disease;
+    disease_list.push_back(d);
+    population[0]->infect(*d);
 }
 
 Grid::Grid(int ROWS, int COLS)

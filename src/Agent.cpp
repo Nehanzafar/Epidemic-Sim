@@ -34,6 +34,7 @@ void Agent::infect(Disease &disease)
     this->infected = true;
     this->imunity_codes.push_back(this->disease->get_code());
     sort(this->imunity_codes.begin(), this->imunity_codes.end());
+    std::cout << "Infected the person..." << std::endl;
 }
 
 Disease *Agent::get_disease()
