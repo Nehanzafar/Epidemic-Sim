@@ -47,4 +47,5 @@ public:
     float get_immuno_weakness();
     Disease *get_disease();
     Pos get_position();
+    vector<int> get_immunity_codes();
 };

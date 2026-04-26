@@ -76,3 +76,7 @@ Pos Agent::get_position()
 {
     return position;
 }
+vector<int> Agent::get_immunity_codes()
+{
+    return this->imunity_codes;
+}

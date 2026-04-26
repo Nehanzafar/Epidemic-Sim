@@ -20,10 +20,14 @@ void Simulation::interaction(Agent &sick, Agent &other)
     {
         return;
     }
+    if (find(other.get_immunity_codes().begin(), other.get_immunity_codes().end(), sick.get_disease()->get_code()) != other.get_immunity_codes().end())
+    {
+        return;
+    }
     random_device rd;
     mt19937 gen(rd());
     float infection_chance = (sick.get_disease()->get_infectivity() + other.get_immuno_weakness());
-    if ((((float)uniform_int_distribution<int>(1, 10)(gen)) / (10)) >= infection_chance)
+    if ((((float)uniform_int_distribution<int>(1, 10)(gen)) / (10)) <= infection_chance)
     {
         if ((((float)uniform_int_distribution<int>(1, 10)(gen)) / (10)) >= ((1) - (sick.get_disease()->get_mutate_chance())))
         {

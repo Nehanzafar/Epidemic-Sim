@@ -35,5 +35,4 @@ public:
     float get_mutate_chance();
     //setter
     void increment_total_Agents_infected();
-
 };
