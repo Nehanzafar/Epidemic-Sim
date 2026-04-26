@@ -1,7 +1,9 @@
 #include "Agent.h"
 #include <cmath>
-
+#include "raylib.h"
+#include "Window.h"
 using namespace std;
+
 Agent::Agent()
 {
 
@@ -11,10 +13,6 @@ Agent::Agent()
     this->infection_time = 0;
     this->infected = false;
     this->disease = nullptr;
-
-    constexpr int screen_width = GetScreenWidth();
-    constexpr int screen_height = GetScreenHeight();
-
     this->position = {
         uniform_int_distribution<int>(1, screen_width)(gen),
         uniform_int_distribution<int>(1, screen_height)(gen),
@@ -69,7 +67,7 @@ void Agent::update()
     if ((newPosX + CELL_SIZE > 0) || (newPosX + CELL_SIZE <= GetScreenWidth()))
         position.x = newPosX;
     if ((newPosY + CELL_SIZE > 0) || (newPosY + CELL_SIZE <= GetScreenHeight()))
-        position.Y = newPosY;
+        position.y = newPosY;
 }
 
 Pos Agent::get_position()

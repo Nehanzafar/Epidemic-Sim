@@ -93,7 +93,5 @@ void Simulation::handle_collision()
 
 void Simulation::run_simulation()
 {
-    Window win;
-
-    win.Run(population);
+    
 }
