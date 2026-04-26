@@ -31,4 +31,5 @@ public:
     // helper
     int infect(const Agent &other);
     void data_dump(); // outputs the entire stats of agent
+    void Draw(); // This draws the Agent on the screen
 };

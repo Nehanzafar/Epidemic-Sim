@@ -15,7 +15,14 @@ Agent::Agent()
     this->disease = nullptr;
     this->immunity_codes = new int[0];
     this->size_of_codes = 5;
+
+    this->position = {
+        uniform_int_distribution<int>(1, GetScreenWidth())(gen),
+        uniform_int_distribution<int>(1, GetScreenHeight())(gen),
+    };
+
 }
+
 void Agent::data_dump()
 {
     cout << "Agent immuno_weakness = " << this->immuno_weakness << endl;

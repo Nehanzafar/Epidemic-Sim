@@ -1,5 +1,5 @@
-# This is the CMake file that i am using on my laptop
-cmake_minimum_required(VERSION 3.10)
+    # This is the CMake file that i am using on my laptop
+cmake_minimum_required(VERSION 4.2)
 project(EpidemiologySim)
 
 set(CMAKE_CXX_STANDARD 17)
