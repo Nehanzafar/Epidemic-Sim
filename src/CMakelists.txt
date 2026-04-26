@@ -1,9 +1,9 @@
 # This is the CMake file that i am using on my laptop
 file(GLOB SOURCES "*.cpp")
-add_executable(EpidemiologySim ${SOURCES})
+add_executable(${PROJECT_NAME} ${SOURCES})
 
 # Use the full path to the .lib file
-target_link_libraries(EpidemiologySim PRIVATE 
+target_link_libraries(${PROJECT_NAME} PRIVATE 
     "C:/raylib/raylib/build/raylib/Release/raylib.lib"
     winmm 
     gdi32 

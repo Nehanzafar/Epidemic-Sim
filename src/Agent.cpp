@@ -1,7 +1,6 @@
 #include "Agent.h"
 #include <cmath>
-#include "raylib.h"
-#include "Window.h"
+#include <raylib.h>
 using namespace std;
 
 Agent::Agent()
@@ -14,8 +13,8 @@ Agent::Agent()
     this->infected = false;
     this->disease = nullptr;
     this->position = {
-        uniform_int_distribution<int>(1, screen_width)(gen),
-        uniform_int_distribution<int>(1, screen_height)(gen),
+        uniform_int_distribution<int>(1, GetScreenWidth())(gen),
+        uniform_int_distribution<int>(1, GetScreenWidth())(gen),
     };
 }
 void Agent::data_dump()
@@ -46,35 +45,63 @@ float Agent::get_immuno_weakness()
 {
     return this->immuno_weakness;
 }
+
+int Agent::infection_tick()
+{
+    if (this->infection_time > 0)
+    {
+        this->infection_time--;
+        if (infection_time == 0)
+        {
+            float fatality_chance = this->immuno_weakness + this->get_disease()->get_fatality_chance();
+            random_device rd;
+            mt19937 gen(rd());
+            if ((((float)uniform_int_distribution<int>(1, 10)(gen)) / 10) <= fatality_chance)
+            {
+                this->get_disease()->increment_total_Agents_killed();
+                return 1;
+            }
+            this->infected = false;
+            this->disease = nullptr;
+            return 0;
+        }
+    }
+}
 // nehan land
 
-void Agent::draw()
+void Agent::draw(Color color)
 {
-    DrawCircle(position.x, position.y, CELL_SIZE, WHITE);
+    DrawCircle(position.x, position.y, CELL_SIZE, color);
 }
 
-void Agent::update()
+void Agent::update(int x, int y)
 {
-
-    random_device rd;
-    mt19937 gen(rd());
-    int angle_in_deg = uniform_int_distribution<int>(0, 360)(gen);
-    const double pi = 3.14159265358979323846;
-    float angle_in_rad = (angle_in_deg * 180) / pi;
-
-    int newPosX = position.x + velocity * cos(angle_in_rad);
-    int newPosY = position.y + velocity * sin(angle_in_rad);
-    if ((newPosX + CELL_SIZE > 0) || (newPosX + CELL_SIZE <= GetScreenWidth()))
-        position.x = newPosX;
-    if ((newPosY + CELL_SIZE > 0) || (newPosY + CELL_SIZE <= GetScreenHeight()))
-        position.y = newPosY;
+    this->position.x = x;
+    this->position.y = y;
 }
 
-Pos Agent::get_position()
+Pos Agent::get_position() const
 {
     return position;
 }
+
+int Agent::get_velocity() const
+{
+    return velocity;
+}
+
+void Agent::set_position(Pos pos)
+{
+    this->position = pos;
+
+}
+
 vector<int> Agent::get_immunity_codes()
 {
     return this->imunity_codes;
+}
+
+bool Agent::is_sick()
+{
+    return infected;
 }

@@ -11,23 +11,18 @@ Window::Window()
     SetTargetFPS(60);
 }
 
-void Window::Run(std::vector<Agent> a)
+void Window::Run()
 {
     sim->run_simulation();
     const Color darkGreen = {20, 160, 133, 255};
     while (!WindowShouldClose())
     {
-
+        sim->run_step();
         BeginDrawing();
         ClearBackground(darkGreen);
-        for (int i = 0; i < a.size(); i++)
-        {
-            a[i].draw();
-        }
+        sim->draw();
         EndDrawing();
     }
 
     CloseWindow();
 }
-
-// Move this one layer up and make the simulation work

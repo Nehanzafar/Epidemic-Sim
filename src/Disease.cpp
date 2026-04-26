@@ -38,8 +38,16 @@ float Disease::get_mutate_chance()
 {
     return this->mutate_chance;
 }
+float Disease::get_fatality_chance()
+{
+    return this->fatality;
+}
 void Disease::increment_total_Agents_infected()
 {
     this->total_Agents_infected++;
+}
+void Disease::increment_total_Agents_killed()
+{
+    this->total_Agents_kiilled++;
 }
 int Disease::strains = 0;

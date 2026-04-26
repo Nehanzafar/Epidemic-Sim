@@ -21,8 +21,10 @@ private:
     float infectivity;
     float recovery_time;             // time in ticks to recover from disease
     float const mutate_chance = 0.1; // chance of mutatuing
-    //stats
+    // stats
     int total_Agents_infected;
+    int total_Agents_kiilled;
+
 public:
     static int strains; // tracks number of active strains
     Disease();
@@ -33,6 +35,8 @@ public:
     int get_total_Agents_infected();
     float get_infectivity();
     float get_mutate_chance();
-    //setter
+    float get_fatality_chance();
+    // setter
     void increment_total_Agents_infected();
+    void increment_total_Agents_killed();
 };

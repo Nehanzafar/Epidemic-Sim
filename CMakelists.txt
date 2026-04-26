@@ -1,4 +1,5 @@
-    # This is the CMake file that i am using on my laptop
+# This is the CMake file that i am using on my laptop
+# This version requires raylib to be preinstalled and built on your pc
 cmake_minimum_required(VERSION 4.2)
 project(EpidemiologySim)
 
@@ -9,11 +10,14 @@ set(CMAKE_CXX_STANDARD 17)
 set(RAYLIB_INCLUDE_DIR "C:/raylib/raylib/src")
 set(RAYLIB_LIB_DIR "C:/raylib/raylib/src")
 
+# set(raylib_DIR "C:/raylib/raylib/build/raylib/Release/raylib.lib")
+# find_package(raylib REQUIRED)
+
 # 2. Tell CMake to look in these folders
 include_directories(include)           # Your headers
 include_directories(${RAYLIB_INCLUDE_DIR}) # Raylib headers
 
-link_directories(${RAYLIB_LIB_DIR})
+# link_directories(${RAYLIB_LIB_DIR})
 
 add_subdirectory(src)
 
@@ -21,6 +25,7 @@ if(MSVC)
     # This tells the linker to ignore the standard library conflict
     set_target_properties(EpidemiologySim PROPERTIES LINK_FLAGS "/NODEFAULTLIB:MSVCRT")
 endif()
+
 
 # cmake_minimum_required(VERSION 3.14)
 # project(EpidemiologySim)

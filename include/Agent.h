@@ -3,7 +3,7 @@
 #include <vector>
 #include <random>
 #include <iostream>
-#include <raylib.h>
+#include "raylib.h"
 #include <algorithm>
 
 struct Pos
@@ -32,18 +32,25 @@ private:
 
     // Board attributes
     Pos position;
-    static const int velocity = 5;
+    const int velocity = 5;
 
 public:
     Agent(); // Default constructor to assign random values to modifiers
     // helper
     void infect(Disease &); // only infects no checks
     void data_dump();       // outputs the entire stats of agent
-    void draw();
-    void update();
+    void draw(Color color);
+    void update(int, int);
     // getter
     float get_immuno_weakness();
     Disease *get_disease();
-    Pos get_position();
-    vector<int> get_immunity_codes();
+    Pos get_position() const;
+    void set_position(Pos);
+    int get_velocity() const;
+    std::vector<int> get_immunity_codes();
+    unsigned int get_infection_time();
+    int infection_tick();
+    bool is_sick();
+
+
 };
