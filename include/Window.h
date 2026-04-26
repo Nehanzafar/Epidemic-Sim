@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
-#include "Agent.h"
 #include "Simulation.h"
+#include <raylib.h>
 class Window
 {
 private:

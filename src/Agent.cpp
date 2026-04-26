@@ -1,6 +1,5 @@
 #include "Agent.h"
-#include <cmath>
-#include <raylib.h>
+
 using namespace std;
 
 Agent::Agent()
@@ -13,8 +12,8 @@ Agent::Agent()
     this->infected = false;
     this->disease = nullptr;
     this->position = {
-        uniform_int_distribution<int>(1, GetScreenWidth())(gen),
-        uniform_int_distribution<int>(1, GetScreenWidth())(gen),
+        uniform_int_distribution<int>(1, 800)(gen),
+        uniform_int_distribution<int>(1, 600)(gen),
     };
 }
 void Agent::data_dump()

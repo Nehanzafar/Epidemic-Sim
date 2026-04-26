@@ -1,11 +1,12 @@
 #pragma once
-#include "Disease.h"
 #include <vector>
 #include <random>
 #include <iostream>
-#include "raylib.h"
 #include <algorithm>
-
+#include <raylib.h>
+#include <cmath>
+// Our own code
+#include "Disease.h"
 struct Pos
 {
     int x;
@@ -51,6 +52,4 @@ public:
     unsigned int get_infection_time();
     int infection_tick();
     bool is_sick();
-
-
 };

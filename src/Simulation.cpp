@@ -1,8 +1,7 @@
 #include "Simulation.h"
-#include "Grid.h"
 using namespace std;
 
-Simulation::Simulation(int amount_of_time, int starting_population, Disease_attributes d = {0, 0, 0, 0})
+Simulation::Simulation(int amount_of_time, int starting_population, Disease_attributes d)
 {
     this->total_time_the_simulation_lasts = amount_of_time;
     this->starting_disease_attributes = d;
@@ -102,7 +101,7 @@ void Simulation::run_step()
         random_device rd;
         mt19937 gen(rd());
 
-        int rndm_num = uniform_int_distribution<int>(0, allowed_pos.size())(gen);
+        int rndm_num = uniform_int_distribution<int>(0, 10)(gen);
         if ((allowed_pos[rndm_num].x + CELL_SIZE > 0) || (allowed_pos[rndm_num].x + CELL_SIZE <= screen_width) && (allowed_pos[rndm_num].y + CELL_SIZE > 0) || (allowed_pos[rndm_num].y + CELL_SIZE <= screen_height))
             agent->set_position(allowed_pos[rndm_num]);
     }
@@ -130,4 +129,44 @@ void Simulation::draw()
 void Simulation::run_simulation()
 {
     std::cout << "The simulation is starting.." << std::endl;
+}
+
+Grid::Grid(int ROWS, int COLS)
+{
+    grid = new Agent **[ROWS];
+    this->ROWS = ROWS;
+    this->COLS = COLS;
+
+    for (int i = 0; i < ROWS; i++)
+    {
+        grid[i] = new Agent *[COLS];
+    }
+}
+
+void Grid::clear()
+{
+    // 1. Wipe the grid clean
+    for (int x = 0; x < COLS; x++)
+    {
+        for (int y = 0; y < ROWS; y++)
+        {
+            grid[x][y] = nullptr;
+        }
+    }
+}
+
+Agent **Grid::operator[](int i)
+{
+    return grid[i];
+}
+
+Grid::~Grid()
+{
+    for (int x = 0; x < COLS; x++)
+    {
+        for (int y = 0; y < ROWS; y++)
+        {
+            delete grid[x][y];
+        }
+    }
 }

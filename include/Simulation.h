@@ -1,14 +1,28 @@
 #pragma once
 #include <vector>
 #include <random>
-#include "Agent.h"
-#include "Disease.h"
 #include <iostream>
 #include <raylib.h>
-#include "Grid.h"
+// our own code
+#include "Agent.h"
 
 constexpr int screen_width = 800;
 constexpr int screen_height = 600;
+
+class Grid
+{
+private:
+    Agent ***grid;
+    int ROWS;
+    int COLS;
+
+public:
+    Grid(int, int);
+    void clear();
+    Agent **operator[](int i);
+    ~Grid();
+};
+
 class Simulation
 {
 private:
@@ -25,7 +39,8 @@ private:
     Grid *grid;
 
 public:
-    Simulation(int, int, Disease_attributes);
+    Simulation(int amount_of_time, int starting_population, Disease_attributes d = {0, 0, 0, 0});
+
     void interaction(Agent &sick, Agent &other); // infection interaction
     void run_simulation();
     void pause_simulation();
