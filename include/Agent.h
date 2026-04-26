@@ -12,6 +12,8 @@ struct Pos
     int y;
 };
 
+const int CELL_SIZE = 5;
+
 class Agent
 {
 private:
@@ -31,19 +33,15 @@ private:
     // Board attributes
     Pos position;
     static const int velocity = 5;
-    const int CELL_SIZE = 5;
-
-
-
 
 public:
     Agent(); // Default constructor to assign random values to modifiers
     // helper
     void infect(Disease &); // only infects no checks
-    void data_dump();      // outputs the entire stats of agent
+    void data_dump();       // outputs the entire stats of agent
     void draw();
     void update();
-    //getter
+    // getter
     float get_immuno_weakness();
     Disease *get_disease();
     Pos get_position();
