@@ -1,5 +1,10 @@
 #pragma once
 #include "Disease.h"
+#include <vector>
+#include <random>
+#include <iostream>
+#include <raylib.h>
+#include <algorithm>
 
 struct Pos
 {
@@ -19,16 +24,27 @@ private:
     // Flags
     bool infected; // is the Agent infected or not
     // immunity codes
-
+    std::vector<int> imunity_codes;
     //  Disease storage
     Disease *disease;
+
+    // Board attributes
     Pos position;
+    static const int velocity = 5;
+    const int CELL_SIZE = 5;
+
+
+
 
 public:
-    int *immunity_codes;
-    int size_of_codes;
     Agent(); // Default constructor to assign random values to modifiers
     // helper
-    int infect(const Agent &other);
-    void data_dump(); // outputs the entire stats of agent
+    void infect(Disease &); // only infects no checks
+    void data_dump();      // outputs the entire stats of agent
+    void draw();
+    void update();
+    //getter
+    float get_immuno_weakness();
+    Disease *get_disease();
+    Pos get_position();
 };
