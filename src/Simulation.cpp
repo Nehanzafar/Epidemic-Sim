@@ -162,6 +162,10 @@ void Simulation::draw()
         }
         a->draw(color);
         // grid->display();
+
+        if(IsMouseButtonPressed(0) && a->within_agent(GetMousePosition())){
+
+        }
     }
 }
 
@@ -230,4 +234,4 @@ Grid::~Grid()
 // Things i have noticed
 // The simulation is too fast
 // the person recovers faster than the screen can display it
-// The motion is localized to specific regions for some reason
+// The motion is localized to specific regions for some reason22

@@ -36,13 +36,13 @@ private:
     Pos last_position;
     const int velocity = 5;
     
-
-public:
+    public:
     Agent(); // Default constructor to assign random values to modifiers
     // helper
     void infect(Disease &); // only infects no checks
     void data_dump();       // outputs the entire stats of agent
     void draw(Color color);
+    void draw_info_panel();
     void update(int, int);
     // getter
     float get_immuno_weakness();
@@ -55,4 +55,5 @@ public:
     unsigned int get_infection_time();
     int infection_tick();
     bool is_sick();
+    bool within_agent(std::vector<int> mousePosition);
 };

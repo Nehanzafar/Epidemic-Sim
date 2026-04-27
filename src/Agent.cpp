@@ -76,9 +76,9 @@ void Agent::draw(Color color)
 
     std::string s = "( " + std::to_string(position.x) + ", " + std::to_string(position.y) + " )";
 
-    #ifdef DEBUG
+#ifdef DEBUG
     DrawText(s.c_str(), position.x + 5, position.y + 10, 20, WHITE);
-    #endif
+#endif
 }
 
 void Agent::update(int x, int y)
@@ -110,4 +110,13 @@ vector<int> Agent::get_immunity_codes()
 bool Agent::is_sick()
 {
     return infected;
+}
+
+bool Agent::within_agent(std::vector<int> mousePosition)
+{
+    return std::pow(mousePosition[0] - this->position.x, 2) + std::pow(mousePosition[1] - this->position.y, 2) < CELL_SIZE;
+}
+
+void Agent::draw_info_panel(){
+    DrawRectangle(this->position.x - 10, this->position.y - 20, 5, 10, GREEN);  
 }
