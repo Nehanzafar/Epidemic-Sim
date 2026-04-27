@@ -8,7 +8,7 @@ Disease::Disease()
     this->fatality = ((float)uniform_int_distribution<int>(1, 5)(gen)) / 10;
     ;
     this->infectivity = ((float)uniform_int_distribution<int>(1, 5)(gen)) / 10;
-    this->recovery_time = (uniform_int_distribution<int>(10, 30)(gen));
+    this->recovery_time = (uniform_int_distribution<int>(600, 1800)(gen));
 }
 
 Disease::Disease(float fatality, float infectivity, float recovery_time)
