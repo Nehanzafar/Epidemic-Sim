@@ -3,7 +3,7 @@
 
 Window::Window()
 {
-    this->sim = new Simulation(20, 5, {0, 0, 0, 0});
+    this->sim = new Simulation(20, 20, {0, 0, 0, 0});
     InitWindow(screen_width, screen_height, "Epidemeology Sim");
     SetTargetFPS(60);
 }

@@ -33,7 +33,9 @@ private:
 
     // Board attributes
     Pos position;
+    Pos last_position;
     const int velocity = 5;
+    
 
 public:
     Agent(); // Default constructor to assign random values to modifiers
@@ -47,6 +49,7 @@ public:
     Disease *get_disease();
     Pos get_position() const;
     void set_position(Pos);
+    void set_last_position(Pos);
     int get_velocity() const;
     std::vector<int> get_immunity_codes();
     unsigned int get_infection_time();

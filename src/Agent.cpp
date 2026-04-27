@@ -2,9 +2,10 @@
 
 using namespace std;
 
+// #define DEBUG 0
+
 Agent::Agent()
 {
-
     random_device rd;
     mt19937 gen(rd());
     this->immuno_weakness = ((float)uniform_int_distribution<int>(1, 5)(gen)) / 10;
@@ -72,6 +73,12 @@ int Agent::infection_tick()
 void Agent::draw(Color color)
 {
     DrawCircle(position.x, position.y, CELL_SIZE, color);
+
+    std::string s = "( " + std::to_string(position.x) + ", " + std::to_string(position.y) + " )";
+
+    #ifdef DEBUG
+    DrawText(s.c_str(), position.x + 5, position.y + 10, 20, WHITE);
+    #endif
 }
 
 void Agent::update(int x, int y)
@@ -93,7 +100,6 @@ int Agent::get_velocity() const
 void Agent::set_position(Pos pos)
 {
     this->position = pos;
-
 }
 
 vector<int> Agent::get_immunity_codes()

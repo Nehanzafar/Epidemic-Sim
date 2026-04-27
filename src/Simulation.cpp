@@ -12,7 +12,7 @@ Simulation::Simulation(int amount_of_time, int starting_population, Disease_attr
     for (int i = 0; i < starting_population; i++)
     {
         Agent *a = new Agent;
-        std::cout << "X: " << a->get_position().x << "Y: " << a->get_position().y << std::endl;
+
         population.push_back(a);
     }
 }
@@ -64,11 +64,22 @@ void Simulation::interaction(Agent &sick, Agent &other)
 void Simulation::update_grid()
 {
     // 1. wipe the grid clean
-    grid->clear();
 
     // 2. Put each agent into the correct bucket
     for (auto &agent : population)
     {
+    }
+}
+
+// This handles the indivual tick
+void Simulation::run_step()
+{
+
+    grid->clear();
+
+    for (auto &agent : population)
+    {
+
         int gx = static_cast<int>((*agent).get_position().x / CELL_SIZE);
         int gy = static_cast<int>((*agent).get_position().y / CELL_SIZE);
 
@@ -77,15 +88,6 @@ void Simulation::update_grid()
         {
             ((*grid)[gy])[gx] = agent;
         }
-    }
-}
-
-// This handles the indivual tick
-void Simulation::run_step()
-{
-
-    for (auto &agent : population)
-    {
 
         if ((*agent).infection_tick() == 1)
         {
@@ -94,9 +96,6 @@ void Simulation::run_step()
             return;
         }
         vector<Pos> allowed_pos;
-
-        int gx = static_cast<int>(agent->get_position().x) / CELL_SIZE;
-        int gy = static_cast<int>(agent->get_position().y) / CELL_SIZE;
 
         for (int x = gx - 1; x <= gx + 1; x++)
         {
@@ -107,11 +106,15 @@ void Simulation::run_step()
                     if (x == gx && y == gy)
                         continue;
 
-                    if (((*grid)[y])[x] != nullptr && agent->get_disease() != nullptr)
+                    if (((*grid)[y])[x] != nullptr)
                     {
-                        std::cout << "Interaction ocurring..." << std::endl;
-                        interaction(*agent, *((*grid)[y])[x]);
-                        std::cout << "Interaction ocurred..." << std::endl;
+                        if (agent->is_sick())
+                        {
+
+                            std::cout << "Interaction ocurring..." << std::endl;
+                            interaction(*agent, *((*grid)[y])[x]);
+                            std::cout << "Interaction ocurred..." << std::endl;
+                        }
                     }
                     else
                     {
@@ -120,22 +123,22 @@ void Simulation::run_step()
                 }
             }
         }
+        // move this to class attribute
         random_device rd;
         mt19937 gen(rd());
 
-        // int rndm_num = uniform_int_distribution<int>(0, (int)(allowed_pos.size()))(gen);
-        int rndm_num = 0;
+        
+        int rndm_num = uniform_int_distribution<int>(0, (int)(allowed_pos.size() - 1))(gen);
+        int newX = allowed_pos[rndm_num].x * CELL_SIZE;
+        int newY = allowed_pos[rndm_num].y * CELL_SIZE;
+
         // if ((allowed_pos[rndm_num].x + CELL_SIZE > 0) || (allowed_pos[rndm_num].x + CELL_SIZE <= screen_width) && (allowed_pos[rndm_num].y + CELL_SIZE > 0) || (allowed_pos[rndm_num].y + CELL_SIZE <= screen_height))
-        //     agent->set_position(allowed_pos[rndm_num]);
-
-        // This is just to test the code
-
-        int newX = agent->get_position().x + agent->get_velocity();
-        int newY = agent->get_position().y + agent->get_velocity();
         if (newX >= 0 && (newX + CELL_SIZE) <= screen_width &&
             newY >= 0 && (newY + CELL_SIZE) <= screen_height)
-            agent->set_position({newX,
-                                 newY});
+            agent->set_position({newX, newY});
+
+        // This is just to test the code
+        //     agent->set_position({newX, newY});
     }
 }
 
@@ -144,18 +147,21 @@ void Simulation::draw()
     int i = 0;
     for (auto &a : population)
     {
-        Color color = {200, 200, 200};
+        Color color;
         if (a->is_sick())
         {
-            color.b -= a->get_disease()->get_code();
-            color.g -= a->get_disease()->get_code();
-            color.r -= a->get_disease()->get_code();
+            color = RED;
+
+            // color.b -= a->get_disease()->get_code();
+            // color.g -= a->get_disease()->get_code();
+            // color.r -= a->get_disease()->get_code();
         }
         else
         {
             color = WHITE;
         }
         a->draw(color);
+        // grid->display();
     }
 }
 
@@ -183,9 +189,9 @@ Grid::Grid(int ROWS, int COLS)
 void Grid::clear()
 {
     // 1. Wipe the grid clean
-    for (int x = 0; x < COLS; x++)
+    for (int y = 0; y < COLS; y++)
     {
-        for (int y = 0; y < ROWS; y++)
+        for (int x = 0; x < ROWS; x++)
         {
             grid[x][y] = nullptr;
         }
@@ -195,6 +201,19 @@ void Grid::clear()
 Agent **Grid::operator[](int i)
 {
     return grid[i];
+}
+
+void Grid::display()
+{
+    for (int y = 0; y < COLS; y++)
+    {
+        for (int x = 0; x < ROWS; x++)
+        {
+            std::cout << grid[x][y] << " ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
 }
 
 Grid::~Grid()
@@ -207,3 +226,8 @@ Grid::~Grid()
         }
     }
 }
+
+// Things i have noticed
+// The simulation is too fast
+// the person recovers faster than the screen can display it
+// The motion is localized to specific regions for some reason

@@ -20,6 +20,7 @@ public:
     Grid(int, int);
     void clear();
     Agent **operator[](int i);
+    void display();
     ~Grid();
 };
 
