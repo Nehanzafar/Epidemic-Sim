@@ -3,7 +3,7 @@
 
 Window::Window()
 {
-    this->sim = new Simulation(20, 20, {0, 0, 0, 0});
+    this->sim = new Simulation(20, 100, {0, 0, 0, 0}, screen_width, screen_width, 10);
     InitWindow(screen_width, screen_height, "Epidemeology Sim");
     SetTargetFPS(60);
 }
@@ -17,6 +17,7 @@ void Window::Run()
         BeginDrawing();
         ClearBackground(BLACK);
         sim->draw();
+        // sim->draw_grid();
         EndDrawing();
     }
 

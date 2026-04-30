@@ -2,6 +2,10 @@
 #include <vector>
 #include "Simulation.h"
 #include <raylib.h>
+
+constexpr int screen_width = 800;
+constexpr int screen_height = 600;
+
 class Window
 {
 private:

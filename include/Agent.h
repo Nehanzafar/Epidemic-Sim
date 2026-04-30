@@ -35,11 +35,15 @@ private:
     Pos position;
     Pos last_position;
     const int velocity = 5;
-    
-    public:
-    Agent(); // Default constructor to assign random values to modifiers
+
+    // flag
+    bool info_panel_open = false;
+    // rndm function
+    std::mt19937 gen;
+public:
+    Agent(std::mt19937 gen); // Default constructor to assign random values to modifiers
     // helper
-    void infect(Disease &); // only infects no checks
+    void infect(Disease *); // only infects no checks
     void data_dump();       // outputs the entire stats of agent
     void draw(Color color);
     void draw_info_panel();
@@ -51,9 +55,11 @@ private:
     void set_position(Pos);
     void set_last_position(Pos);
     int get_velocity() const;
-    std::vector<int> get_immunity_codes();
+    std::vector<int> &get_immunity_codes();
     unsigned int get_infection_time();
     int infection_tick();
     bool is_sick();
-    bool within_agent(std::vector<int> mousePosition);
+    bool within_agent(Vector2 mousePosition);
+    bool is_info_panel_open();
+    void toggle_info_panel();
 };

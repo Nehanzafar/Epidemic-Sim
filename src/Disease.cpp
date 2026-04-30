@@ -1,17 +1,15 @@
 #include "Disease.h"
 using namespace std;
-Disease::Disease()
+Disease::Disease(mt19937 gen)
 {
     this->code = strains++;
-    random_device rd;
-    mt19937 gen(rd());
     this->fatality = ((float)uniform_int_distribution<int>(1, 5)(gen)) / 10;
     ;
     this->infectivity = ((float)uniform_int_distribution<int>(1, 5)(gen)) / 10;
-    this->recovery_time = (uniform_int_distribution<int>(600, 1800)(gen));
+    this->recovery_time = (uniform_int_distribution<int>(120, 600)(gen));
 }
 
-Disease::Disease(float fatality, float infectivity, float recovery_time)
+Disease::Disease(float fatality, float infectivity, float recovery_time, std::mt19937 gen)
 {
     this->code = strains++;
     this->fatality = fatality;

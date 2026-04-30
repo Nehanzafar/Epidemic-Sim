@@ -4,10 +4,9 @@ using namespace std;
 
 // #define DEBUG 0
 
-Agent::Agent()
+Agent::Agent(std::mt19937 gen)
 {
-    random_device rd;
-    mt19937 gen(rd());
+    this->gen = gen;
     this->immuno_weakness = ((float)uniform_int_distribution<int>(1, 5)(gen)) / 10;
     this->infection_time = 0;
     this->infected = false;
@@ -19,6 +18,7 @@ Agent::Agent()
 }
 void Agent::data_dump()
 {
+
     cout << "Agent immuno_weakness = " << this->immuno_weakness << endl;
     cout << "Agent infection_time = " << this->infection_time << endl;
     cout << "Is the Agent infected = " << this->infected << endl;
@@ -27,15 +27,14 @@ void Agent::data_dump()
         cout << "Disease Name = " << disease->get_code() << endl;
     }
 }
-void Agent::infect(Disease &disease)
+void Agent::infect(Disease *disease)
 {
-    this->disease = &disease;
+    this->disease = disease;
     this->disease->increment_total_Agents_infected();
     this->infection_time = (int)((this->disease->get_recovery_time()) * (1 + this->immuno_weakness));
     this->infected = true;
     this->imunity_codes.push_back(this->disease->get_code());
     sort(this->imunity_codes.begin(), this->imunity_codes.end());
-    std::cout << "Infected the person..." << std::endl;
 }
 
 Disease *Agent::get_disease()
@@ -55,8 +54,6 @@ int Agent::infection_tick()
         if (infection_time == 0)
         {
             float fatality_chance = this->immuno_weakness + this->get_disease()->get_fatality_chance();
-            random_device rd;
-            mt19937 gen(rd());
             if ((((float)uniform_int_distribution<int>(1, 10)(gen)) / 10) <= fatality_chance)
             {
                 this->get_disease()->increment_total_Agents_killed();
@@ -102,7 +99,7 @@ void Agent::set_position(Pos pos)
     this->position = pos;
 }
 
-vector<int> Agent::get_immunity_codes()
+vector<int> &Agent::get_immunity_codes()
 {
     return this->imunity_codes;
 }
@@ -112,11 +109,28 @@ bool Agent::is_sick()
     return infected;
 }
 
-bool Agent::within_agent(std::vector<int> mousePosition)
+bool Agent::within_agent(Vector2 mousePosition)
 {
-    return std::pow(mousePosition[0] - this->position.x, 2) + std::pow(mousePosition[1] - this->position.y, 2) < CELL_SIZE;
+    return std::pow(mousePosition.x - this->position.x, 2) + std::pow(mousePosition.y - this->position.y, 2) < CELL_SIZE;
 }
 
-void Agent::draw_info_panel(){
-    DrawRectangle(this->position.x - 10, this->position.y - 20, 5, 10, GREEN);  
+void Agent::draw_info_panel()
+{
+    DrawRectangle(this->position.x - 10, this->position.y - 20, 30, 50, GREEN);
+}
+
+bool Agent::is_info_panel_open()
+{
+    return info_panel_open;
+}
+
+void Agent::toggle_info_panel()
+{
+    if (!info_panel_open)
+    {
+        this->info_panel_open = true;
+        return;
+    }
+    this->info_panel_open = false;
+    return;
 }
