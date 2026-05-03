@@ -55,5 +55,6 @@ public:
     void draw();
     void run_step();
     void draw_grid();
+    int population_count();
     ~Simulation();
 };

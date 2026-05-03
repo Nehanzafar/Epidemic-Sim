@@ -22,8 +22,8 @@ private:
     float recovery_time;             // time in ticks to recover from disease
     float const mutate_chance = 0.1; // chance of mutatuing
     // stats
-    int total_Agents_infected;
-    int total_Agents_kiilled;
+    int total_Agents_infected = 0;
+    int total_Agents_kiilled = 0;
 
 public:
     static int strains; // tracks number of active strains
@@ -39,5 +39,4 @@ public:
     // setter
     void increment_total_Agents_infected();
     void increment_total_Agents_killed();
-    ~Disease();
 };

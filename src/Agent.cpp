@@ -17,6 +17,7 @@ Agent::Agent(std::mt19937 gen)
     };
 }
 void Agent::data_dump()
+
 {
 
     cout << "Agent immuno_weakness = " << this->immuno_weakness << endl;
@@ -63,6 +64,7 @@ int Agent::infection_tick()
             this->disease = nullptr;
             return 0;
         }
+        return 0;
     }
 }
 // nehan land

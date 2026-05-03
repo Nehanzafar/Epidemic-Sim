@@ -4,7 +4,7 @@ Disease::Disease(mt19937 gen)
 {
     this->code = strains++;
     this->fatality = ((float)uniform_int_distribution<int>(1, 5)(gen)) / 10;
-    ;
+
     this->infectivity = ((float)uniform_int_distribution<int>(1, 5)(gen)) / 10;
     this->recovery_time = (uniform_int_distribution<int>(120, 600)(gen));
 }
