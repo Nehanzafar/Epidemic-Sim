@@ -101,7 +101,7 @@ void Simulation::run_step()
 
     bool should_write_to_file = false;
 
-    if (time % this->tick == 0)
+    if (time % (this->tick / 2) == 0)
         should_write_to_file = true;
 
     for (Agent *agent : population)
@@ -224,6 +224,7 @@ void Simulation::run_simulation()
     Disease *d = new Disease(this->starting_disease_attributes.fatality, this->starting_disease_attributes.infectivity, this->starting_disease_attributes.recovery_time);
     disease_list.push_back(d);
     population[0]->infect(d);
+    write_to_file(time, population.size(), starting_population - population.size(), 1, disease_list.size(), this->amount_of_recovered);
 }
 
 int Simulation::population_count()
