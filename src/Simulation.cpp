@@ -1,11 +1,10 @@
 #include "Simulation.h"
 using namespace std;
 
-Simulation::Simulation(int amount_of_time, int starting_population, Disease_attributes d,
+Simulation::Simulation(int starting_population, Disease_attributes d,
                        const int screen_width, const int screen_height, const int CELL_SIZE)
     : screen_width(screen_width), screen_height(screen_height), CELL_SIZE(CELL_SIZE)
 {
-    this->total_time_the_simulation_lasts = amount_of_time;
     this->starting_disease_attributes = d;
     this->time = 0;
 

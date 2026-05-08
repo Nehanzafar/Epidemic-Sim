@@ -2,6 +2,7 @@
 #include <vector>
 #include "Simulation.h"
 #include <raylib.h>
+#include <iostream>
 
 constexpr int screen_width = 1800;
 constexpr int screen_height = 900;

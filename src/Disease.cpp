@@ -9,12 +9,13 @@ Disease::Disease(mt19937 gen)
     this->recovery_time = (uniform_real_distribution<float>(120, 600)(gen));
 }
 
-Disease::Disease(float fatality, float infectivity, float recovery_time, std::mt19937 gen)
+Disease::Disease(float fatality, float infectivity, float recovery_time)
 {
     this->code = strains++;
     this->fatality = fatality;
     this->infectivity = infectivity;
     this->recovery_time = recovery_time;
+    
 }
 int Disease::get_code()
 {
