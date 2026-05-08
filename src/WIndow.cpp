@@ -3,7 +3,7 @@
 
 Window::Window()
 {
-    this->sim = new Simulation(20, 100, {0, 0, 0, 0}, screen_width, screen_width, 10);
+    this->sim = new Simulation(20, 100, {0, 0, 0, 0}, screen_width, screen_height, 10);
     InitWindow(screen_width, screen_height, "Epidemeology Sim");
     SetTargetFPS(30);
 }
@@ -25,4 +25,5 @@ void Window::Run()
     }
 
     CloseWindow();
+    std::cout << "HEllo WOlrd";
 }
