@@ -1,3 +1,4 @@
+
 #include "Simulation.h"
 using namespace std;
 
@@ -6,7 +7,7 @@ Simulation::Simulation(int starting_population, Disease_attributes d,
     : screen_width(screen_width), screen_height(screen_height), CELL_SIZE(CELL_SIZE)
 {
     this->starting_disease_attributes = d;
-    this->time = 0;
+    this->time = 0; // in ticks which should be divided by the number of ticks of the window
 
     random_device rd;
     this->gen = mt19937(rd());
@@ -15,7 +16,16 @@ Simulation::Simulation(int starting_population, Disease_attributes d,
 
     population.reserve(starting_population);
     for (int i = 0; i < starting_population; i++)
+    {
+
+        // int x = static_cast<int>(normal_distribution<float>(static_cast<float>(screen_width / 2), 10.0f)(gen));
+        // int y = static_cast<int>(normal_distribution<float>(static_cast<float>(screen_height / 2), 10.0f)(gen));
+        // if ((*grid)[y][x] != nullptr)
+        // {
         population.push_back(new Agent(gen, screen_width, screen_height));
+        // (*grid)[y][x] = population[i];
+        // }
+    }
 }
 
 void Simulation::interaction(Agent *sick, Agent *other)
@@ -135,7 +145,7 @@ void Simulation::draw()
     int code;
     string population = "Population: " + to_string(this->population_count());
     string Active_strains = "Total Active Strains: " + to_string(this->disease_list.size());
-    string Time = "Time: " + to_string(this->time / 60);
+    string Time = "Time: " + to_string(this->time / this->tick);
 
     // Info panel to the right
     int font_size = 40;
@@ -146,22 +156,16 @@ void Simulation::draw()
     starting_pos += font_size;
     DrawText(Active_strains.c_str(), 30, starting_pos, 30, WHITE);
 
-    DrawCircle((screen_width / 2), (screen_height / 2), 10, WHITE);
-
     for (Agent *a : this->population)
     {
         if (a->is_sick())
         {
-            code = a->get_disease()->get_code() * 5;
-            color.r -= code;
-            color.g -= code;
-            color.b -= code;
+            a->draw(a->get_disease()->get_color().infectivity, a->get_disease()->get_color().fatality);
         }
         else
         {
-            color = WHITE;
+            a->draw(WHITE, WHITE);
         }
-        a->draw(color);
     }
 }
 

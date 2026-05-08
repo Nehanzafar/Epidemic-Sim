@@ -71,9 +71,9 @@ int Agent::infection_tick()
 }
 // nehan land
 
-void Agent::draw(Color color)
+void Agent::draw(Color color1, Color color2)
 {
-    DrawCircle(position.x, position.y, CELL_SIZE, color);
+    DrawCircleGradient(position.x, position.y, CELL_SIZE, color1, color2);
 
     std::string s = "( " + std::to_string(position.x) + ", " + std::to_string(position.y) + " )";
 

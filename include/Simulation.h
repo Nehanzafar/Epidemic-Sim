@@ -3,6 +3,8 @@
 #include <random>
 #include <iostream>
 #include <raylib.h>
+#include <sstream>
+#include <iomanip>
 // our own code
 #include "Agent.h"
 
@@ -40,6 +42,7 @@ private:
     const int screen_width;
     const int screen_height;
     const int CELL_SIZE;
+    const int tick;
     Grid *grid;
     std::mt19937 gen;
 
