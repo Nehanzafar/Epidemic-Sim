@@ -9,7 +9,7 @@ Disease::Disease(mt19937 gen)
     assign_color();
 }
 
-Disease::Disease(float fatality, float infectivity, float recovery_time)
+Disease::Disease(float fatality, float infectivity, int recovery_time)
 {
     this->code = strains++;
     this->fatality = fatality;
@@ -97,12 +97,12 @@ void Disease::assign_color()
     else if (this->infectivity > 0.1)
     {
         this->colorScheme.infectivity = {
-            1, 201, 1, 255};
+            0, 201, 0, 255};
     }
     else
     {
         this->colorScheme.infectivity = {
-            1, 238, 1, 255};
+            0, 238, 0, 255};
     }
 }
 

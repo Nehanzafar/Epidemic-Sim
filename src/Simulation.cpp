@@ -31,7 +31,7 @@ Simulation::Simulation(int starting_population, Disease_attributes d,
             if (x < 0 || x >= screen_width || y < 0 || y >= screen_height)
                 continue; // skip out of bounds values
 
-            if ((*grid)[gy][gx] == nullptr) // ✅ only spawn if free
+            if ((*grid)[gy][gx] == nullptr)
             {
                 Agent *a = new Agent(gen, screen_width, screen_height, x, y);
                 (*grid)[gy][gx] = a;
@@ -87,7 +87,7 @@ void Simulation::update_grid()
     }
 }
 
-void Simulation::run_step()
+int Simulation::run_step()
 {
     grid->clear();
     update_grid();
@@ -98,7 +98,7 @@ void Simulation::run_step()
     allowed_pos.reserve(8); // at most 8 neighbors
     this->time++;
     int sick_count = 0;
-
+    bool any_sick =false;
     bool should_write_to_file = false;
 
     if (time % (this->tick / 2) == 0)
@@ -106,6 +106,8 @@ void Simulation::run_step()
 
     for (Agent *agent : population)
     {
+        if (agent->is_sick()==1)
+            any_sick = true;
         if (agent->infection_tick() == 1)
         {
             dead.push_back(agent);
@@ -169,7 +171,14 @@ void Simulation::run_step()
     }
 
     if (should_write_to_file)
+<<<<<<< HEAD
+        write_to_file(time, population.size(), starting_population - population.size(), sick_count, disease_list.size());
+    if(any_sick == false)
+        return 1;
+    return 0;
+=======
         write_to_file(time, population.size(), starting_population - population.size(), sick_count, disease_list.size(), this->amount_of_recovered);
+>>>>>>> 12601d535d20912eb99eb00c44ab970fcd726e87
 }
 
 void Simulation::draw()

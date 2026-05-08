@@ -60,7 +60,7 @@ public:
     void stop_simulation();
     void update_grid();
     void draw();
-    void run_step();
+    int run_step();
     void draw_grid();
     int population_count();
     void write_to_file(int time, int current_population, int amount_of_deaths, int sick_count, int total_number_of_diseases, int amount_of_recovered);
