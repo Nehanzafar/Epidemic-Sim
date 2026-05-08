@@ -6,16 +6,20 @@ Window::Window()
 {
     bool choice;
     cout << "----------Welcome To The Epidemeology Sim----------" << endl;
-    cout << "Do you want to run on the suggested parameters (1 yes/0 no) :";
+    cout << "Do you want to run on the suggested parameters (1 yes/0 no) : ";
     cin >> choice;
     switch (choice)
     {
     case 1:
-        this->sim = new Simulation(100, {0.3, 0.3, 150}, screen_width, screen_height, 10, tick);
+        this->sim = new Simulation(100, {0.3, 0.3, 300}, screen_width, screen_height, 10, tick);
         break;
     case 0:
         int population, recovery_time;
         float fatality, infectivity;
+
+        cout << "Enter population: ";
+        cin >> population;
+
         cout << "Enter the starting disease conditions: " << endl;
         cout << "Enter The Fatality Of Disease (0-0.5): ";
         cin >> fatality;
@@ -23,8 +27,8 @@ Window::Window()
         cin >> infectivity;
         cout << "Enter The recovery_time Of Disease (120 - 600): ";
         cin >> recovery_time;
-
         this->sim = new Simulation(population, {fatality, infectivity, recovery_time}, screen_width, screen_height, 10, tick);
+        ;
         break;
     default:
         break;
@@ -40,7 +44,8 @@ void Window::Run()
     sim->run_simulation();
     while (!WindowShouldClose())
     {
-        sim->run_step();
+        if (sim->run_step() == 1)
+            break;
         BeginDrawing();
         ClearBackground(BLACK);
         sim->draw();
@@ -50,5 +55,6 @@ void Window::Run()
             return;
     }
     CloseWindow();
-
+    system("cd ..");
+    system("python main.py");
 }

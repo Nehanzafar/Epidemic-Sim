@@ -35,7 +35,7 @@ private:
 public:
     static int strains; // tracks number of active strains
     Disease(std::mt19937 gen);
-    Disease(float fatality, float infectivity, float recovery_time); // Parameterized constructor to Assign all the modifiers with values
+    Disease(float fatality, float infectivity, int recovery_time); // Parameterized constructor to Assign all the modifiers with values
     // getter
     int get_code();
     int get_recovery_time();
