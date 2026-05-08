@@ -3,8 +3,8 @@
 #include "Simulation.h"
 #include <raylib.h>
 
-constexpr int screen_width = 800;
-constexpr int screen_height = 600;
+constexpr int screen_width = 1800;
+constexpr int screen_height = 900;
 
 class Window
 {

@@ -16,7 +16,7 @@ Simulation::Simulation(int amount_of_time, int starting_population, Disease_attr
 
     population.reserve(starting_population);
     for (int i = 0; i < starting_population; i++)
-        population.push_back(new Agent(gen));
+        population.push_back(new Agent(gen, screen_width, screen_height));
 }
 
 void Simulation::interaction(Agent *sick, Agent *other)
@@ -33,8 +33,8 @@ void Simulation::interaction(Agent *sick, Agent *other)
 
     if (roll <= infection_chance)
     {
-        float mutate_roll = uniform_int_distribution<int>(1, 10)(gen) / 10.0f;
-        if (mutate_roll >= (1.0f - sick->get_disease()->get_mutate_chance()))
+        float mutate_roll = uniform_real_distribution<float>(0, 1.0f)(gen);
+        if (mutate_roll <= (sick->get_disease()->get_mutate_chance()))
         {
             Disease *d = new Disease(this->gen);
             disease_list.push_back(d);
@@ -69,7 +69,8 @@ void Simulation::run_step()
     vector<Agent *> dead;
     vector<Pos> allowed_pos;
     allowed_pos.reserve(8); // at most 8 neighbors
-    int count = 0;
+    this->time++;
+
     for (Agent *agent : population)
     {
         if (agent->infection_tick() == 1)
@@ -98,7 +99,7 @@ void Simulation::run_step()
                 Agent *other = (*grid)[ny][nx]; // consistent [row][col]
                 if (other != nullptr)
                 {
-                    if (is_sick)
+                    if (!other->is_sick())
                         interaction(agent, other);
                 }
                 else
@@ -117,7 +118,6 @@ void Simulation::run_step()
 
         if (newX >= 0 && newX <= screen_width && newY >= 0 && newY <= screen_height)
             agent->set_position({newX, newY});
-        count++;
 
         // agent->data_dump();
     }
@@ -128,18 +128,32 @@ void Simulation::run_step()
         population.erase(remove(population.begin(), population.end(), a), population.end());
         delete a;
     }
-    std::cout << "Population count: " << count << std::endl;
 }
 
 void Simulation::draw()
 {
     Color color = {100, 255, 255, 255};
     int code;
-    for (Agent *a : population)
+    string population = "Population: " + to_string(this->population_count());
+    string Active_strains = "Total Active Strains: " + to_string(this->disease_list.size());
+    string Time = "Time: " + to_string(this->time);
+
+    // Info panel to the right
+    int font_size = 40;
+    int starting_pos = 30;
+    DrawText(Time.c_str(), 30, starting_pos, 30, WHITE);
+    starting_pos += font_size;
+    DrawText(population.c_str(), 30, starting_pos, 30, WHITE);
+    starting_pos += font_size;
+    DrawText(Active_strains.c_str(), 30, starting_pos, 30, WHITE);
+
+    DrawCircle((screen_width / 2), (screen_height / 2), 10, WHITE);
+
+    for (Agent *a : this->population)
     {
         if (a->is_sick())
         {
-            code = a->get_disease()->get_code();
+            code = a->get_disease()->get_code() * 5;
             color.r -= code;
             color.g -= code;
             color.b -= code;

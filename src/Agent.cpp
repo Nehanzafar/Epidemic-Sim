@@ -4,18 +4,20 @@ using namespace std;
 
 // #define DEBUG 0
 
-Agent::Agent(std::mt19937 gen)
+Agent::Agent(std::mt19937 gen, int screen_width, int screen_height)
 {
     this->gen = gen;
-    this->immuno_weakness = ((float)uniform_int_distribution<int>(1, 5)(gen)) / 10;
+    this->immuno_weakness = (uniform_real_distribution<float>(0, 0.5)(gen));
     this->infection_time = 0;
     this->infected = false;
     this->disease = nullptr;
+
     this->position = {
-        uniform_int_distribution<int>(1, 800)(gen),
-        uniform_int_distribution<int>(1, 600)(gen),
+        static_cast<int>(normal_distribution<float>(static_cast<float>(screen_width / 2), 10.0f)(gen)),
+        static_cast<int>(normal_distribution<float>(static_cast<float>(screen_height / 2), 10.0f)(gen)),
     };
 }
+
 void Agent::data_dump()
 
 {
@@ -55,7 +57,7 @@ int Agent::infection_tick()
         if (infection_time == 0)
         {
             float fatality_chance = this->immuno_weakness + this->get_disease()->get_fatality_chance();
-            if ((((float)uniform_int_distribution<int>(1, 10)(gen)) / 10) <= fatality_chance)
+            if ((uniform_real_distribution<float>(0.0f, 1.0f)(gen)) <= fatality_chance)
             {
                 this->get_disease()->increment_total_Agents_killed();
                 return 1;

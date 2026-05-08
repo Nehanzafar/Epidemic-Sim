@@ -3,10 +3,10 @@ using namespace std;
 Disease::Disease(mt19937 gen)
 {
     this->code = strains++;
-    this->fatality = ((float)uniform_int_distribution<int>(1, 5)(gen)) / 10;
+    this->fatality = (uniform_real_distribution<float>(0, 0.5)(gen));
 
-    this->infectivity = ((float)uniform_int_distribution<int>(1, 5)(gen)) / 10;
-    this->recovery_time = (uniform_int_distribution<int>(120, 600)(gen));
+    this->infectivity = (uniform_real_distribution<float>(0, 0.5)(gen));
+    this->recovery_time = (uniform_real_distribution<float>(120, 600)(gen));
 }
 
 Disease::Disease(float fatality, float infectivity, float recovery_time, std::mt19937 gen)
