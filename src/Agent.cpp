@@ -64,7 +64,7 @@ int Agent::infection_tick()
             this->disease = nullptr;
             return 0;
         }
-        return 0;
+        return -1;
     }
 }
 // nehan land

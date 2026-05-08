@@ -41,6 +41,7 @@ private:
     int time;
     Disease_attributes starting_disease_attributes;
     int starting_population;
+    int amount_of_recovered;
 
     // Constant attributes
     const int screen_width;
@@ -62,6 +63,6 @@ public:
     void run_step();
     void draw_grid();
     int population_count();
-    void write_to_file(int time, int current_population, int amount_of_deaths, int sick_count, int total_number_of_diseases);
+    void write_to_file(int time, int current_population, int amount_of_deaths, int sick_count, int total_number_of_diseases, int amount_of_recovered);
     ~Simulation();
 };
