@@ -42,7 +42,7 @@ private:
     std::mt19937 gen;
 
 public:
-    Agent(std::mt19937 gen, int screen_width, int screen_height); // Default constructor to assign random values to modifiers
+    Agent(std::mt19937 gen, int screen_width, int screen_height, int x, int y); // Default constructor to assign random values to modifiers
     // helper
     void infect(Disease *); // only infects no checks
     void data_dump();       // outputs the entire stats of agent

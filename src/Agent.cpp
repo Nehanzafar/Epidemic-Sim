@@ -4,7 +4,7 @@ using namespace std;
 
 // #define DEBUG 0
 
-Agent::Agent(std::mt19937 gen, int screen_width, int screen_height)
+Agent::Agent(std::mt19937 gen, int screen_width, int screen_height, int x, int y)
 {
     this->gen = gen;
     this->immuno_weakness = (uniform_real_distribution<float>(0, 0.5)(gen));
@@ -13,9 +13,7 @@ Agent::Agent(std::mt19937 gen, int screen_width, int screen_height)
     this->disease = nullptr;
 
     this->position = {
-        static_cast<int>(normal_distribution<float>(static_cast<float>(screen_width / 2), 10.0f)(gen)),
-        static_cast<int>(normal_distribution<float>(static_cast<float>(screen_height / 2), 10.0f)(gen)),
-    };
+        x, y};
 }
 
 void Agent::data_dump()

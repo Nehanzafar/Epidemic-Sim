@@ -11,13 +11,21 @@ Window::Window()
     switch (choice)
     {
     case 1:
-        this->sim = new Simulation(100, {0, 0, 0, 0}, screen_width, screen_height, 10);
+        this->sim = new Simulation(100, {0.3, 0.3, 150}, screen_width, screen_height, 10, tick);
         break;
     case 0:
-        // int population;
-        // float fatality,infectivity,recovery_time;
-        // cout <<"Enter The Fatality Of Disease (0-0.5): "
-        // break;
+        int population, recovery_time;
+        float fatality, infectivity;
+        cout << "Enter the starting disease conditions: " << endl;
+        cout << "Enter The Fatality Of Disease (0-0.5): ";
+        cin >> fatality;
+        cout << "Enter The Infectivity Of Disease (0-0.5): ";
+        cin >> infectivity;
+        cout << "Enter The recovery_time Of Disease (120 - 600): ";
+        cin >> recovery_time;
+
+        this->sim = new Simulation(population, {fatality, infectivity, recovery_time}, screen_width, screen_height, 10, tick);
+        break;
     default:
         break;
     }
@@ -42,5 +50,5 @@ void Window::Run()
             return;
     }
     CloseWindow();
-    std::cout << "Hello World";
+
 }

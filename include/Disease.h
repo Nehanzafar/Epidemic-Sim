@@ -10,7 +10,6 @@ struct Disease_attributes
     float fatality;
     float infectivity;
     int recovery_time;
-    float mutate_chance;
 };
 
 struct Gradient

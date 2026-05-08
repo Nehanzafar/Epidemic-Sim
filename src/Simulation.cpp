@@ -3,9 +3,10 @@
 using namespace std;
 
 Simulation::Simulation(int starting_population, Disease_attributes d,
-                       const int screen_width, const int screen_height, const int CELL_SIZE)
-    : screen_width(screen_width), screen_height(screen_height), CELL_SIZE(CELL_SIZE)
+                       const int screen_width, const int screen_height, const int CELL_SIZE, const int tick)
+    : screen_width(screen_width), screen_height(screen_height), CELL_SIZE(CELL_SIZE), tick(tick)
 {
+    this->starting_population = starting_population;
     this->starting_disease_attributes = d;
     this->time = 0; // in ticks which should be divided by the number of ticks of the window
 
@@ -18,14 +19,30 @@ Simulation::Simulation(int starting_population, Disease_attributes d,
     for (int i = 0; i < starting_population; i++)
     {
 
-        // int x = static_cast<int>(normal_distribution<float>(static_cast<float>(screen_width / 2), 10.0f)(gen));
-        // int y = static_cast<int>(normal_distribution<float>(static_cast<float>(screen_height / 2), 10.0f)(gen));
-        // if ((*grid)[y][x] != nullptr)
-        // {
-        population.push_back(new Agent(gen, screen_width, screen_height));
-        // (*grid)[y][x] = population[i];
-        // }
+        do
+        {
+            int x = static_cast<int>(normal_distribution<float>(static_cast<float>(screen_width / 2), 80.0f)(gen));
+            int y = static_cast<int>(normal_distribution<float>(static_cast<float>(screen_height / 2), 80.0f)(gen));
+
+            int gx = x / CELL_SIZE;
+            int gy = y / CELL_SIZE;
+
+            if (x < 0 || x >= screen_width || y < 0 || y >= screen_height)
+                continue; // skip out of bounds values
+
+            if ((*grid)[gy][gx] == nullptr) // ✅ only spawn if free
+            {
+                Agent *a = new Agent(gen, screen_width, screen_height, x, y);
+                (*grid)[gy][gx] = a;
+                population.push_back(a);
+                break;
+            }
+        } while (true);
     }
+
+    ofstream myfile("outputData.csv");
+    myfile << "time,population,deaths,sick,diseases" << endl;
+    myfile.close();
 }
 
 void Simulation::interaction(Agent *sick, Agent *other)
@@ -79,6 +96,12 @@ void Simulation::run_step()
     vector<Pos> allowed_pos;
     allowed_pos.reserve(8); // at most 8 neighbors
     this->time++;
+    int sick_count = 0;
+
+    bool should_write_to_file = false;
+
+    if (time % this->tick == 0)
+        should_write_to_file = true;
 
     for (Agent *agent : population)
     {
@@ -128,6 +151,8 @@ void Simulation::run_step()
         if (newX >= 0 && newX <= screen_width && newY >= 0 && newY <= screen_height)
             agent->set_position({newX, newY});
 
+        if (should_write_to_file && agent->is_sick())
+            sick_count++;
         // agent->data_dump();
     }
 
@@ -137,6 +162,9 @@ void Simulation::run_step()
         population.erase(remove(population.begin(), population.end(), a), population.end());
         delete a;
     }
+
+    if (should_write_to_file)
+        write_to_file(time, population.size(), starting_population - population.size(), sick_count, disease_list.size());
 }
 
 void Simulation::draw()
@@ -188,7 +216,7 @@ void Simulation::draw_grid()
 
 void Simulation::run_simulation()
 {
-    Disease *d = new Disease(this->gen);
+    Disease *d = new Disease(this->starting_disease_attributes.fatality, this->starting_disease_attributes.infectivity, this->starting_disease_attributes.recovery_time);
     disease_list.push_back(d);
     population[0]->infect(d);
 }
@@ -198,6 +226,24 @@ int Simulation::population_count()
     return population.size();
 }
 
+void Simulation::write_to_file(int time, int current_population, int amount_of_deaths, int sick_count, int total_number_of_diseases)
+{
+    ofstream myfile("outputData.csv", ios::app);
+
+    if (!myfile.is_open())
+    {
+        cerr << "Error: could not open outputData.csv" << endl;
+        return;
+    }
+
+    myfile << time / this->tick << ","
+           << current_population << ","
+           << amount_of_deaths << ","
+           << sick_count << ","
+           << total_number_of_diseases << "\n";
+
+    myfile.close();
+}
 Simulation::~Simulation()
 {
     for (Agent *a : population)
