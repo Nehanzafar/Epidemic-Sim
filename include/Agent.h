@@ -15,7 +15,18 @@ struct Pos
 
 const int CELL_SIZE = 5;
 
-class Agent
+class object
+{
+
+public:
+    virtual void draw(Color color1, Color color2) = 0;
+    virtual void draw_info_panel() = 0;
+    virtual void update(int, int) = 0;
+    virtual bool is_info_panel_open() = 0;
+    virtual void toggle_info_panel() = 0;
+};
+
+class Agent : public object
 {
 private:
     // Modifiers

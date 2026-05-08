@@ -98,7 +98,7 @@ int Simulation::run_step()
     allowed_pos.reserve(8); // at most 8 neighbors
     this->time++;
     int sick_count = 0;
-    bool any_sick =false;
+    bool any_sick = false;
     bool should_write_to_file = false;
 
     if (time % (this->tick / 2) == 0)
@@ -106,7 +106,7 @@ int Simulation::run_step()
 
     for (Agent *agent : population)
     {
-        if (agent->is_sick()==1)
+        if (agent->is_sick() == 1)
             any_sick = true;
         if (agent->infection_tick() == 1)
         {
@@ -171,14 +171,10 @@ int Simulation::run_step()
     }
 
     if (should_write_to_file)
-<<<<<<< HEAD
-        write_to_file(time, population.size(), starting_population - population.size(), sick_count, disease_list.size());
-    if(any_sick == false)
+        write_to_file(time, population.size(), starting_population - population.size(), sick_count, disease_list.size(), this->amount_of_recovered);
+    if (any_sick == false)
         return 1;
     return 0;
-=======
-        write_to_file(time, population.size(), starting_population - population.size(), sick_count, disease_list.size(), this->amount_of_recovered);
->>>>>>> 12601d535d20912eb99eb00c44ab970fcd726e87
 }
 
 void Simulation::draw()
