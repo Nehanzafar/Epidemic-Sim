@@ -9,7 +9,7 @@ Disease::Disease(mt19937 gen)
     assign_color();
 }
 
-Disease::Disease(float fatality, float infectivity, float recovery_time, mt19937 gen)
+Disease::Disease(float fatality, float infectivity, float recovery_time)
 {
     this->code = strains++;
     this->fatality = fatality;

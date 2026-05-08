@@ -36,7 +36,6 @@ private:
     std::vector<Agent *> population;
     std::vector<Disease *> disease_list;
     int time;
-    int total_time_the_simulation_lasts;
     Disease_attributes starting_disease_attributes;
 
     // Constant attributes
@@ -48,7 +47,7 @@ private:
     std::mt19937 gen;
 
 public:
-    Simulation(int amount_of_time, int starting_population, Disease_attributes d = {0, 0, 0, 0}, const int screen_width = 300, const int screen_height = 300, const int CELL_SIZE = 5, const int tick = 60);
+    Simulation(int starting_population, Disease_attributes d = {0, 0, 0, 0}, const int screen_width = 300, const int screen_height = 300, const int CELL_SIZE = 5);
 
     void interaction(Agent *sick, Agent *other); // infection interaction
     void run_simulation();

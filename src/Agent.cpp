@@ -57,7 +57,7 @@ int Agent::infection_tick()
         if (infection_time == 0)
         {
             float fatality_chance = this->immuno_weakness + this->get_disease()->get_fatality_chance();
-            if ((uniform_real_distribution<float>(0.0f, 1.0f)(gen)) <= fatality_chance)
+            if ((uniform_real_distribution<float>(0.0f, 1.1f)(gen)) <= fatality_chance)
             {
                 this->get_disease()->increment_total_Agents_killed();
                 return 1;

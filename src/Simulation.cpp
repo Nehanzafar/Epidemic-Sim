@@ -2,11 +2,10 @@
 #include "Simulation.h"
 using namespace std;
 
-Simulation::Simulation(int amount_of_time, int starting_population, Disease_attributes d,
-                       const int screen_width, const int screen_height, const int CELL_SIZE, const int tick)
-    : screen_width(screen_width), screen_height(screen_height), CELL_SIZE(CELL_SIZE), tick(tick)
+Simulation::Simulation(int starting_population, Disease_attributes d,
+                       const int screen_width, const int screen_height, const int CELL_SIZE)
+    : screen_width(screen_width), screen_height(screen_height), CELL_SIZE(CELL_SIZE)
 {
-    this->total_time_the_simulation_lasts = amount_of_time;
     this->starting_disease_attributes = d;
     this->time = 0; // in ticks which should be divided by the number of ticks of the window
 
@@ -39,7 +38,7 @@ void Simulation::interaction(Agent *sick, Agent *other)
         return;
 
     float infection_chance = sick->get_disease()->get_infectivity() + other->get_immuno_weakness();
-    float roll = uniform_int_distribution<int>(0, 20)(gen) / 10.0f;
+    float roll = uniform_real_distribution<float>(0, 2.0)(gen);
 
     if (roll <= infection_chance)
     {
