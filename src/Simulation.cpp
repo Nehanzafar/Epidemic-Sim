@@ -70,7 +70,6 @@ void Simulation::run_step()
     vector<Pos> allowed_pos;
     allowed_pos.reserve(8); // at most 8 neighbors
     int count = 0;
-
     for (Agent *agent : population)
     {
         if (agent->infection_tick() == 1)
