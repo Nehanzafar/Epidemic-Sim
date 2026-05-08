@@ -9,6 +9,7 @@ Simulation::Simulation(int starting_population, Disease_attributes d,
     this->starting_population = starting_population;
     this->starting_disease_attributes = d;
     this->time = 0; // in ticks which should be divided by the number of ticks of the window
+    this->amount_of_recovered = 0;
 
     random_device rd;
     this->gen = mt19937(rd());
@@ -41,7 +42,7 @@ Simulation::Simulation(int starting_population, Disease_attributes d,
     }
 
     ofstream myfile("outputData.csv");
-    myfile << "time,population,deaths,sick,diseases" << endl;
+    myfile << "time,population,deaths,sick,diseases,recovered" << endl;
     myfile.close();
 }
 
@@ -100,7 +101,7 @@ int Simulation::run_step()
     bool any_sick =false;
     bool should_write_to_file = false;
 
-    if (time % this->tick == 0)
+    if (time % (this->tick / 2) == 0)
         should_write_to_file = true;
 
     for (Agent *agent : population)
@@ -111,6 +112,10 @@ int Simulation::run_step()
         {
             dead.push_back(agent);
             continue;
+        }
+        else if (agent->infection_tick() == 0)
+        {
+            this->amount_of_recovered++;
         }
 
         int gx = static_cast<int>(agent->get_position().x / CELL_SIZE);
@@ -166,10 +171,14 @@ int Simulation::run_step()
     }
 
     if (should_write_to_file)
+<<<<<<< HEAD
         write_to_file(time, population.size(), starting_population - population.size(), sick_count, disease_list.size());
     if(any_sick == false)
         return 1;
     return 0;
+=======
+        write_to_file(time, population.size(), starting_population - population.size(), sick_count, disease_list.size(), this->amount_of_recovered);
+>>>>>>> 12601d535d20912eb99eb00c44ab970fcd726e87
 }
 
 void Simulation::draw()
@@ -224,6 +233,7 @@ void Simulation::run_simulation()
     Disease *d = new Disease(this->starting_disease_attributes.fatality, this->starting_disease_attributes.infectivity, this->starting_disease_attributes.recovery_time);
     disease_list.push_back(d);
     population[0]->infect(d);
+    write_to_file(time, population.size(), starting_population - population.size(), 1, disease_list.size(), this->amount_of_recovered);
 }
 
 int Simulation::population_count()
@@ -231,7 +241,7 @@ int Simulation::population_count()
     return population.size();
 }
 
-void Simulation::write_to_file(int time, int current_population, int amount_of_deaths, int sick_count, int total_number_of_diseases)
+void Simulation::write_to_file(int time, int current_population, int amount_of_deaths, int sick_count, int total_number_of_diseases, int amount_of_recovered)
 {
     ofstream myfile("outputData.csv", ios::app);
 
@@ -245,7 +255,9 @@ void Simulation::write_to_file(int time, int current_population, int amount_of_d
            << current_population << ","
            << amount_of_deaths << ","
            << sick_count << ","
-           << total_number_of_diseases << "\n";
+           << total_number_of_diseases << ","
+           << amount_of_recovered
+           << "\n";
 
     myfile.close();
 }
