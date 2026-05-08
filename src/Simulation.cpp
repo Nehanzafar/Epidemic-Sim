@@ -230,5 +230,3 @@ Grid::~Grid()
         delete[] grid[i];
     delete[] grid;
 }
-
-
