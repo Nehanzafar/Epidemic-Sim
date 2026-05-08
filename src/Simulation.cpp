@@ -22,8 +22,8 @@ Simulation::Simulation(int starting_population, Disease_attributes d,
 
         do
         {
-            int x = static_cast<int>(normal_distribution<float>(static_cast<float>(screen_width / 2), 80.0f)(gen));
-            int y = static_cast<int>(normal_distribution<float>(static_cast<float>(screen_height / 2), 80.0f)(gen));
+            int x = static_cast<int>(normal_distribution<float>(static_cast<float>(screen_width / 2), 100.0f)(gen)) + 50;
+            int y = static_cast<int>(normal_distribution<float>(static_cast<float>(screen_height / 2), 100.0f)(gen)) + 50;
 
             int gx = x / CELL_SIZE;
             int gy = y / CELL_SIZE;

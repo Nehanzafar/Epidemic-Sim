@@ -26,8 +26,6 @@ Window::Window()
 
         this->sim = new Simulation(population, {fatality, infectivity, recovery_time}, screen_width, screen_height, 10, tick);
         break;
-    default:
-        break;
     }
 
     InitWindow(screen_width, screen_height, "Epidemeology Sim");

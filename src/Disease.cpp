@@ -82,27 +82,27 @@ void Disease::assign_color()
     if (this->infectivity > 0.4)
     {
         this->colorScheme.infectivity = {
-            0, 0, 77, 255};
+            0, 77, 0, 255};
     }
     else if (this->infectivity > 0.3)
     {
         this->colorScheme.infectivity = {
-            0, 0, 131, 255};
+            0, 131, 0, 255};
     }
     else if (this->infectivity > 0.2)
     {
         this->colorScheme.infectivity = {
-            0, 0, 168, 255};
+            0, 168, 0, 255};
     }
     else if (this->infectivity > 0.1)
     {
         this->colorScheme.infectivity = {
-            1, 1, 201, 255};
+            1, 201, 1, 255};
     }
     else
     {
         this->colorScheme.infectivity = {
-            1, 1, 238, 255};
+            1, 238, 1, 255};
     }
 }
 
