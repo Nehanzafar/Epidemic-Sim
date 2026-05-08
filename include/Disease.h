@@ -20,7 +20,7 @@ private:
     float fatality;
     float infectivity;
     float recovery_time;             // time in ticks to recover from disease
-    float const mutate_chance = 0.05; // chance of mutatuing
+    float const mutate_chance = 0.1; // chance of mutatuing
     // stats
     int total_Agents_infected = 0;
     int total_Agents_kiilled = 0;

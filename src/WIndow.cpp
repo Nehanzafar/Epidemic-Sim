@@ -20,10 +20,10 @@ void Window::Run()
         // sim->draw_grid();
         EndDrawing();
 
-        if(sim->population_count() == 0) return;
-
+        if (sim->population_count() == 0)
+            return;
     }
 
     CloseWindow();
-    std::cout << "HEllo WOlrd";
+    std::cout << "Hello World";
 }

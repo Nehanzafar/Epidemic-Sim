@@ -29,7 +29,7 @@ void Simulation::interaction(Agent *sick, Agent *other)
         return;
 
     float infection_chance = sick->get_disease()->get_infectivity() + other->get_immuno_weakness();
-    float roll = uniform_int_distribution<int>(0, 20)(gen) / 10.0f;
+    float roll = uniform_real_distribution<float>(0, 2.0)(gen);
 
     if (roll <= infection_chance)
     {
@@ -136,7 +136,7 @@ void Simulation::draw()
     int code;
     string population = "Population: " + to_string(this->population_count());
     string Active_strains = "Total Active Strains: " + to_string(this->disease_list.size());
-    string Time = "Time: " + to_string(this->time);
+    string Time = "Time: " + to_string(this->time / 60);
 
     // Info panel to the right
     int font_size = 40;
