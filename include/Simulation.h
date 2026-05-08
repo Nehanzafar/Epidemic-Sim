@@ -3,6 +3,8 @@
 #include <random>
 #include <iostream>
 #include <raylib.h>
+#include <sstream>
+#include <iomanip>
 // our own code
 #include "Agent.h"
 
@@ -41,11 +43,12 @@ private:
     const int screen_width;
     const int screen_height;
     const int CELL_SIZE;
+    const int tick;
     Grid *grid;
     std::mt19937 gen;
 
 public:
-    Simulation(int amount_of_time, int starting_population, Disease_attributes d = {0, 0, 0, 0}, const int screen_width = 300, const int screen_height = 300, const int CELL_SIZE = 5);
+    Simulation(int amount_of_time, int starting_population, Disease_attributes d = {0, 0, 0, 0}, const int screen_width = 300, const int screen_height = 300, const int CELL_SIZE = 5, const int tick = 60);
 
     void interaction(Agent *sick, Agent *other); // infection interaction
     void run_simulation();

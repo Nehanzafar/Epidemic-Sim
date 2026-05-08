@@ -3,6 +3,7 @@
 #include <string>
 #include <cstdlib>
 #include <random>
+#include <raylib.h>
 
 struct Disease_attributes
 {
@@ -10,6 +11,12 @@ struct Disease_attributes
     float infectivity;
     int recovery_time;
     float mutate_chance;
+};
+
+struct Gradient
+{
+    Color fatality;
+    Color infectivity;
 };
 class Disease
 {
@@ -19,11 +26,12 @@ private:
     // Modifier
     float fatality;
     float infectivity;
-    float recovery_time;             // time in ticks to recover from disease
+    float recovery_time;              // time in ticks to recover from disease
     float const mutate_chance = 0.05; // chance of mutatuing
     // stats
     int total_Agents_infected = 0;
     int total_Agents_kiilled = 0;
+    Gradient colorScheme;
 
 public:
     static int strains; // tracks number of active strains
@@ -39,4 +47,6 @@ public:
     // setter
     void increment_total_Agents_infected();
     void increment_total_Agents_killed();
+    void assign_color();
+    Gradient get_color();
 };

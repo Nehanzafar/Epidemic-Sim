@@ -46,7 +46,7 @@ public:
     // helper
     void infect(Disease *); // only infects no checks
     void data_dump();       // outputs the entire stats of agent
-    void draw(Color color);
+    void draw(Color color1, Color color2);
     void draw_info_panel();
     void update(int, int);
     // getter
