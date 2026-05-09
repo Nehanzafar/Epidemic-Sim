@@ -5,7 +5,7 @@ Disease::Disease(mt19937 gen)
     this->code = strains++;
     this->fatality = (uniform_real_distribution<float>(0, 0.5)(gen));
     this->infectivity = (uniform_real_distribution<float>(0, 0.5)(gen));
-    this->recovery_time = (uniform_real_distribution<float>(120, 600)(gen));
+    this->recovery_time = (uniform_int_distribution<int>(120, 600)(gen));
     assign_color();
 }
 

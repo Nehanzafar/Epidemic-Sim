@@ -11,7 +11,7 @@ Window::Window()
     switch (choice)
     {
     case 1:
-        this->sim = new Simulation(100, {0.3, 0.3, 300}, screen_width, screen_height, 10, tick);
+        this->sim = new Simulation(100, {0.3, 0.3, 120}, screen_width, screen_height, 10, tick);
         break;
     case 0:
         int population, recovery_time;

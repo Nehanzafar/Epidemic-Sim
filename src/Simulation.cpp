@@ -113,10 +113,11 @@ int Simulation::run_step()
             dead.push_back(agent);
             continue;
         }
-        else if (agent->infection_tick() == 0)
-        {
-            this->amount_of_recovered++;
-        }
+        // else if (agent->infection_tick() == 0)
+        // {
+        //     this->amount_of_recovered++;
+        //     continue;
+        // }
 
         int gx = static_cast<int>(agent->get_position().x / CELL_SIZE);
         int gy = static_cast<int>(agent->get_position().y / CELL_SIZE);
