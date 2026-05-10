@@ -43,6 +43,8 @@ public:
     float get_infectivity();
     float get_mutate_chance();
     float get_fatality_chance();
+    int get_total_agents_killed();
+    int get_total_agents_infected();
     // setter
     void increment_total_Agents_infected();
     void increment_total_Agents_killed();

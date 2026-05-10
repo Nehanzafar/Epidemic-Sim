@@ -51,6 +51,14 @@
 
 int main()
 {
+    // if (argc < 2)
+    // {
+    //     std::cout << "Usage: mytool <name>" << std::endl;
+    //     // return 1;
+    // }
+    // std::string name = argv[1];
+    // std::cout << "Hello, " << name << "!" << std::endl;
+
     Window win;
     win.Run();
 

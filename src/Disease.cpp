@@ -106,6 +106,16 @@ void Disease::assign_color()
     }
 }
 
+int Disease::get_total_agents_infected()
+{
+    return this->total_Agents_infected;
+}
+
+int Disease::get_total_agents_killed()
+{
+    return this->total_Agents_kiilled;
+}
+
 Gradient Disease::get_color()
 {
     return colorScheme;

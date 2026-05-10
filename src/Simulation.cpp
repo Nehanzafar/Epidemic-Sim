@@ -42,7 +42,7 @@ Simulation::Simulation(int starting_population, Disease_attributes d,
     }
 
     ofstream myfile("outputData.csv");
-    myfile << "time,population,deaths,sick,diseases,recovered" << endl;
+    myfile << "time,population,deaths,sick,diseases" << endl;
     myfile.close();
 }
 
@@ -101,7 +101,7 @@ int Simulation::run_step()
     bool any_sick = false;
     bool should_write_to_file = false;
 
-    if (time % (this->tick / 2) == 0)
+    if (time % (this->tick) == 0)
         should_write_to_file = true;
 
     for (Agent *agent : population)
@@ -252,11 +252,23 @@ void Simulation::write_to_file(int time, int current_population, int amount_of_d
            << current_population << ","
            << amount_of_deaths << ","
            << sick_count << ","
-           << total_number_of_diseases << ","
-           << amount_of_recovered
+           << total_number_of_diseases
            << "\n";
 
     myfile.close();
+
+    ofstream diseaseData("diseaseData.csv");
+    if (!diseaseData.is_open())
+    {
+        cerr << "Error: could not open diseaseData.csv" << endl;
+        return;
+    }
+    diseaseData << "Code,Infected,Killed\n";
+    for (auto &disease : disease_list)
+    {
+        diseaseData << disease->get_code() << "," << disease->get_total_agents_infected() << "," << disease->get_total_agents_killed() << endl;
+    }
+    diseaseData.close();
 }
 Simulation::~Simulation()
 {
