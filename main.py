@@ -15,7 +15,7 @@ ax1.legend()
 disease_data = pd.read_csv("./diseaseData.csv")
 # Bar graph subplot
 ax2.bar(disease_data["Code"], disease_data["Infected"], label="infected")
-ax2.bar(disease_data["Code"], disease_data["Killed"], label="infected")
+ax2.bar(disease_data["Code"], disease_data["Killed"], label="killed")
 ax2.legend()
 
 plt.show()

@@ -16,17 +16,30 @@ Window::Window()
     case 0:
         int population, recovery_time;
         float fatality, infectivity;
-
-        cout << "Enter population: ";
-        cin >> population;
-
+        do
+        {
+            cout << "Enter population(1-1000): ";
+            cin >> population;
+        } while (population <= 0 || population > 1000);
         cout << "Enter the starting disease conditions: " << endl;
-        cout << "Enter The Fatality Of Disease (0-0.5): ";
-        cin >> fatality;
-        cout << "Enter The Infectivity Of Disease (0-0.5): ";
-        cin >> infectivity;
-        cout << "Enter The recovery_time Of Disease (120 - 600): ";
-        cin >> recovery_time;
+
+        do
+        {
+            cout << "Enter The Fatality Of Disease (0-0.5): ";
+            cin >> fatality;
+        } while (fatality < 0 || fatality > 0.5);
+
+        do
+        {
+            cout << "Enter The Infectivity Of Disease (0-0.5): ";
+            cin >> infectivity;
+        } while (infectivity < 0 || infectivity > 0.5);
+        do
+        {
+            cout << "Enter The recovery_time Of Disease (120 - 600): ";
+            cin >> recovery_time;
+        } while (recovery_time < 120 || recovery_time > 600);
+
         this->sim = new Simulation(population, {fatality, infectivity, recovery_time}, screen_width, screen_height, 10, tick);
         ;
         break;
