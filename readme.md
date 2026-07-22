@@ -41,11 +41,7 @@ This project was developed as part of my university coursework and helped streng
 
 
 ## Quick Build Instructions:
-Open your terminal in the project root.
-
-Run: mkdir build && cd build
-
-(This will take a minute the first time as it downloads Raylib).
-Run: cmake .. 
-
-Run: cmake --build .
+git clone <repo>
+cd Project
+cmake -B build
+cmake --build build
