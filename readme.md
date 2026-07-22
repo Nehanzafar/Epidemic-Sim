@@ -42,6 +42,9 @@ This project was developed as part of my university coursework and helped streng
 
 ## Quick Build Instructions:
 git clone <repo>
+
 cd Project
+
 cmake -B build
+
 cmake --build build
