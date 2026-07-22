@@ -1,16 +1,16 @@
 #pragma once
-#include <vector>
-#include <random>
-#include <iostream>
 #include <algorithm>
-#include <raylib.h>
 #include <cmath>
+#include <iostream>
+#include <random>
+#include <raylib.h>
+#include <vector>
 // Our own code
 #include "Disease.h"
 struct Pos
 {
-    int x;
-    int y;
+	int x;
+	int y;
 };
 
 const int CELL_SIZE = 5;
@@ -19,59 +19,63 @@ class object
 {
 
 public:
-    virtual void draw(Color color1, Color color2) = 0;
-    virtual void draw_info_panel() = 0;
-    virtual void update(int, int) = 0;
-    virtual bool is_info_panel_open() = 0;
-    virtual void toggle_info_panel() = 0;
+	virtual void draw(Color color1, Color color2) = 0;
+	virtual void draw_info_panel() = 0;
+	virtual void update(int, int) = 0;
+	virtual bool is_info_panel_open() = 0;
+	virtual void toggle_info_panel() = 0;
 };
 
 class Agent : public object
 {
 private:
-    // Modifiers
-    // float infection_modifier; // Infection Time ends: The person either lives or dies
-    // Random Variables / Probalities
-    float immuno_weakness; // The person's immune weakness
-    // Timers
-    unsigned int infection_time; // Time remaining the person will remain sick
-    // Flags
-    bool infected; // is the Agent infected or not
-    // immunity codes
-    std::vector<int> imunity_codes;
-    //  Disease storage
-    Disease *disease;
+	// Modifiers
+	// float infection_modifier; // Infection Time ends: The person either lives or dies
+	// Random Variables / Probalities
+	float immuno_weakness; // The person's immune weakness
+	// Timers
+	unsigned int infection_time; // Time remaining the person will remain sick
+	// Flags
+	bool infected; // is the Agent infected or not
+	// immunity codes
+	std::vector<int> imunity_codes;
+	//  Disease storage
+	Disease* disease;
 
-    // Board attributes
-    Pos position;
-    Pos last_position;
-    const int velocity = 5;
+	// Board attributes
+	Pos position;
+	Pos last_position;
+	const int velocity = 5;
 
-    // flag
-    bool info_panel_open = false;
-    // rndm function
-    std::mt19937 gen;
+	// flag
+	bool info_panel_open = false;
+	// rndm function
+	std::mt19937 gen;
 
 public:
-    Agent(std::mt19937 gen, int screen_width, int screen_height, int x, int y); // Default constructor to assign random values to modifiers
-    // helper
-    void infect(Disease *); // only infects no checks
-    void data_dump();       // outputs the entire stats of agent
-    void draw(Color color1, Color color2);
-    void draw_info_panel();
-    void update(int, int);
-    // getter
-    float get_immuno_weakness();
-    Disease *get_disease();
-    Pos get_position() const;
-    void set_position(Pos);
-    void set_last_position(Pos);
-    int get_velocity() const;
-    std::vector<int> &get_immunity_codes();
-    unsigned int get_infection_time();
-    int infection_tick();
-    bool is_sick();
-    bool within_agent(Vector2 mousePosition);
-    bool is_info_panel_open();
-    void toggle_info_panel();
+	Agent(std::mt19937 gen, int screen_width, int screen_height, int x, int y); // Default constructor to assign random values to modifiers
+	// helper
+	void infect(Disease*); // only infects no checks
+
+	// Drawing Functions to draw on screen
+	void data_dump();       // outputs the entire stats of agent
+	void draw(Color color1, Color color2);
+	void draw_info_panel();
+	void update(int, int);
+
+
+	// getter
+	float get_immuno_weakness();
+	Disease* get_disease();
+	Pos get_position() const;
+	void set_position(Pos);
+	void set_last_position(Pos);
+	int get_velocity() const;
+	std::vector<int>& get_immunity_codes();
+	unsigned int get_infection_time();
+	int infection_tick();
+	bool is_sick();
+	bool within_agent(Vector2 mousePosition);
+	bool is_info_panel_open();
+	void toggle_info_panel();
 };

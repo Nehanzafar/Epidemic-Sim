@@ -1,4 +1,4 @@
-# This is the CMake file that i am using on my laptop
+# # This is the CMake file that i am using on my laptop
 file(GLOB SOURCES "*.cpp")
 add_executable(${PROJECT_NAME} ${SOURCES})
 
@@ -26,12 +26,3 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 # if(UNIX AND NOT APPLE)
 #     target_link_libraries(EpidemiologySim PRIVATE m pthread dl rt X11)
 # endif()
-
-#Ahmed's pc
-# add_executable(EpidemiologySim
-#     main.cpp
-#     Agent.cpp
-#     Disease.cpp
-# )
-
-# target_link_libraries(EpidemiologySim raylib)
