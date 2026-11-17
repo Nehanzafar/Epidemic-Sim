@@ -1,28 +1,22 @@
-# # This is the CMake file that i am using on my laptop
-file(GLOB SOURCES "*.cpp")
-add_executable(${PROJECT_NAME} ${SOURCES})
 
-# Use the full path to the .lib file
-target_link_libraries(${PROJECT_NAME} PRIVATE 
-    "C:/raylib/raylib/build/raylib/Release/raylib.lib"
-    winmm 
-    gdi32 
-    opengl32 
-    shell32
-    user32
+# Collect all your .cpp files
+file(GLOB SOURCES "*.cpp")
+
+# Create the executable
+add_executable(EpidemiologySim ${SOURCES})
+target_include_directories(EpidemiologySim PRIVATE "../include")
+
+# Because of FetchContent, "raylib" is now a valid target
+target_link_libraries(EpidemiologySim PRIVATE raylib)
+
+
+# Installation
+install(
+    TARGETS EpidemiologySim
+    RUNTIME DESTINATION bin
 )
 
-# # Collect all your .cpp files
-# file(GLOB SOURCES "*.cpp")
-
-# # Create the executable
-# add_executable(EpidemiologySim ${SOURCES})
-
-# # --- 4. LINK RAYLIB ---
-# # Because of FetchContent, "raylib" is now a valid target
-# target_link_libraries(EpidemiologySim PRIVATE raylib)
-
-# # On Linux, you might need extra system dependencies
-# if(UNIX AND NOT APPLE)
-#     target_link_libraries(EpidemiologySim PRIVATE m pthread dl rt X11)
-# endif()
+# On Linux, you might need extra system dependencies
+if(UNIX AND NOT APPLE)  
+    target_link_libraries(EpidemiologySim PRIVATE m pthread dl rt X11)
+endif()

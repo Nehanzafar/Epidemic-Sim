@@ -40,11 +40,20 @@ Through this project, I gained experience with:
 This project was developed as part of my university coursework and helped strengthen my understanding of simulation techniques and computational modeling.
 
 
+## Pre-requisites
+Cmake 4.2 or above
+Visual Studio 18 2026 or MinGW x64
+
 ## Quick Build Instructions:
 git clone <repo>
 
 cd Project
 
-cmake -B build
-
+cmake -B  build -G "Visual Studio 18 2026" -A x64
+cmake -B build -G "MinGW Makefiles" (For unix based systems)
 cmake --build build
+
+If you are explicitly using MinGWx64 then use 
+cmake -B  build  -DCMAKE_BUILD_TYPE=Release (for optimized building)
+
+# You can also use a valid version from the release section
