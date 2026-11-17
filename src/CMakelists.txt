@@ -1,23 +1,22 @@
 
-add_executable(EpidemiologySim
-    main.cpp
-    # Add your other source files here
-)
+# Collect all your .cpp files
+file(GLOB SOURCES "*.cpp")
 
-target_link_libraries(EpidemiologySim
-    PRIVATE raylib
-)
-target_link_libraries(EpidemiologySim
-    PRIVATE "../include"
-)
+# Create the executable
+add_executable(EpidemiologySim ${SOURCES})
+target_include_directories(EpidemiologySim PRIVATE "../include")
 
+# Because of FetchContent, "raylib" is now a valid target
+target_link_libraries(EpidemiologySim PRIVATE raylib)
 
-target_compile_features(EpidemiologySim
-    PRIVATE cxx_std_17
-)
 
 # Installation
 install(
     TARGETS EpidemiologySim
     RUNTIME DESTINATION bin
 )
+
+# On Linux, you might need extra system dependencies
+if(UNIX AND NOT APPLE)  
+    target_link_libraries(EpidemiologySim PRIVATE m pthread dl rt X11)
+endif()
