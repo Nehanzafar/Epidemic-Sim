@@ -49,7 +49,7 @@ git clone <repo>
 
 cd Project
 
-cmake -B  build -G "Visual Studio 18 2026" -A x64
+cmake -B  build -G "Visual Studio 18 2026" -A x64\n
 cmake -B build -G "MinGW Makefiles" (For unix based systems)
 cmake --build build
 
