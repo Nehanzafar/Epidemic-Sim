@@ -43,6 +43,9 @@ This project was developed as part of my university coursework and helped streng
 ## Pre-requisites
 Cmake 4.2 or above
 Visual Studio 18 2026 or MinGW x64
+Python 3.13
+- pandas
+- matplotlib
 
 ## Quick Build Instructions:
 git clone <repo>
